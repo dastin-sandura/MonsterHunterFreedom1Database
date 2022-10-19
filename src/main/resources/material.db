@@ -1,0 +1,9 @@
+id,name, location,source
+1,kelbi hide,lvl 1 quest "Present for the Armorer
+2,kelbi horn,lvl 1 quest "Present for the Armorer
+3,raw meat,lvl 1 quest "Present for the Armorer,kelbi
+4,raw meat,lvl 1 quest "Present for the Armorer,mosswine
+4,raw meat,lvl 1 quest "Present for the Armorer,aptonoth
+5,silver ticket,lvl 1 quest "Present for the Armorer,mosswine
+6,sm monster bone,lvl 1 quest "Present for the Armorer,aptonoth
+7,insect husk,zon7 Forest&Hills quest Mushroom picking,beehive

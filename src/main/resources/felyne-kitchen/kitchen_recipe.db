@@ -1,0 +1,25 @@
+id,number of cooks,ingredient categories,effect,ingredients
+1,2,meat+grain,health+20,Cubesteak+Hardtack
+2,2,fish+fish,stamina+25,Tuna head+Snake salmon
+3,2,grain+milk,health+10&stamina+25,Sweetbug+Aged Cheese
+3,2,grain+milk,health+10&stamina+25,Sweetbug+Dry Margarine
+3,2,grain+milk,health+10&stamina+25,Hardtack+Aged Cheese
+3,2,grain+milk,health+10&stamina+25,Hardtack+Dry Margarine
+4,2,grain+fish,stamina+25,Hardtack+Snake
+4,2,grain+fish,stamina+25,Sweetbug+Snake
+4,2,grain+fish,stamina+25,Hardtack+Salmon
+4,2,grain+fish,stamina+25,Sweetbug+Salmon
+4,2,grain+fish,stamina+25,Hardtack+Tuna Head
+4,2,grain+fish,stamina+25,Sweetbug+Tuna Head
+4,2,meat+fish,Attack+4,Cubesteak+Snake
+4,2,meat+fish,Attack+4,Cubesteak+Salmon
+4,2,meat+fish,Attack+4,Cubesteak+Tuna Head
+4,2,meat+fish,Attack+4,Spicy Sausage+Snake
+4,2,meat+fish,Attack+4,Spicy Sausage+Salmon
+4,2,meat+fish,Attack+4,Spicy Sausage+Tuna Head
+4,2,meat+grain,Health+20,Cubesteak+Hardtack
+4,2,meat+grain,Health+20,Cubesteak+Sweetbug
+4,2,meat+grain,Health+20,Spicy Sausage+Hardtack
+4,2,meat+grain,Health+20,Spicy Sausage+Sweetbug
+4,3,meat+vegies,Health+20,Spicy Sausage+Sweetbug
+4,3,meat+vegies,Health+20,Spicy Sausage+Sweetbug

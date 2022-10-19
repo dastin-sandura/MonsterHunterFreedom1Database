@@ -1,0 +1,5 @@
+id,lvl,zone,name,rewards,Is Honey harvestable?,how much honey?,harvested with gathering bonus,blockades,rewardcash,rewardscashcontractfee,special mushrooms,hunter points,zones where target monster moves
+1,1,Forest&Hills,Present for the Armorer,2xHerb+Sap Plan+2Kelbi hide+1KelbiHide,yes,3,0,zone8and1,200,100x2,yes,50,?
+2,1,Forest&Hills,Present for the Armorer,1xHerb+1xSap Plan+1xSap Plan+1xSap Plan+2Kelbi hide+2Kelbi hide+1KelbiHide+1KelbiHide,yes,3,gathering+1,zone8and1,200,100x2,yes,50,?
+3,1,Forest&Hills,Mushroom picking,1xblue mushroom+1xblue mushroom+1xblue mushroom+1xblue mushroom,yes,1,gathering+1,no-blockades,?,?,yes,?,?
+3,4?,Desert,Queen of the Desert,3xflame sac+1xmedium bone+1xlarge bone+4xratiahn scale+6xwyvern fang+9xwyvern claw,?,?,-,no-blockades,2700+350x2,?,?,350,4+3
