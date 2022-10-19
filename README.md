@@ -1,4 +1,4 @@
-# MonsterHunterFreedom1Database
+# Monster Hunter Freedom (PSP) Database 
 Gameplay assistant for playing Monster Hunter Freedom game on Playstation Portable.
 It allows you to:
  - browse items available in the game
