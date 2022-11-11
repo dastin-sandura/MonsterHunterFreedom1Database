@@ -1,11 +1,17 @@
 package sandura.mhdatabase;
 
+import com.sun.corba.se.impl.legacy.connection.DefaultSocketFactory;
 import sandura.mhdatabase.item.ItemRepository;
 import sandura.mhdatabase.kitchen.FelyneRecipesService;
 import sandura.mhdatabase.kitchen.RecipeRepository;
-import sandura.mhdatabase.kitchen.ingredient.DrinkIngredientRepository;
 import sandura.mhdatabase.logging.Logger;
+import sun.security.ssl.SSLServerSocketFactoryImpl;
 
+import javax.net.ServerSocketFactory;
+import javax.net.SocketFactory;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +26,7 @@ public class Main {
 
         RecipeRepository recipeRepository = new RecipeRepository();
         log.logInfo(recipeRepository.getRecipes().toString());
-        log.logInfo(recipeRepository.generatePossibleRecipes("Aged Cheese","Sweetbug",2));
+        log.logInfo(recipeRepository.generatePossibleRecipes("Aged Cheese", "Sweetbug", 2));
         log.logDebug("Contents of Items Repository");
         log.logDebug(itemRepository.getItems());
 
@@ -42,10 +48,34 @@ public class Main {
 //        availableIngridients.add("Cudgel Onion");
 //        availableIngridients.add("Snake salmon");
         recipiesService.printPossibleDishes(availableIngridients);
+        recipiesService.getNumberOfCooksFromIngredient("Chili Cheese");
+
+//        httpServerTests();
     }
 
+//    static void httpServerTests() {
+////        HttpURLConnection connection =
+//        ServerSocket serverSocket = null;
+//        try {
+//            DefaultSocketFactory sFactory = new DefaultSocketFactory();
+//            serverSocket = sFactory.createServerSocket("a",1);
+//            serverSocket.bind(Soc);
+//            serverSocket.accept();
+//        } catch (Exception e) {
+//            System.err.println(e);
+//        } finally {
+//            if (serverSocket != null) {
+//                try {
+//                    serverSocket.close();
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        }
+//    }
 
-    void runTests(){
+
+    void runTests() {
 
     }
 }
