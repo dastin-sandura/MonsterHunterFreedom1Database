@@ -52,7 +52,7 @@ public class Logger {
         StackTraceElement stackTraceElement1 = stackTrace[1];
         StackTraceElement stackTraceElement2 = stackTrace[2];
         if (LoggingLevel.ERROR == loggingLevel || LoggingLevel.INFO == loggingLevel || LoggingLevel.DEBUG == loggingLevel) {
-            System.err.println(errorMessage);
+            System.err.println(stackTraceElement2.getMethodName() + " " + errorMessage);
         }
     }
 

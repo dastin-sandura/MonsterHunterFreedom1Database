@@ -6,10 +6,11 @@ import java.io.IOException;
 
 public class FishIngredientRepositoryTest {
 
-    private Logger logger = new Logger(Logger.LoggingLevel.DEBUG);
+    private static final Logger logger = new Logger(Logger.LoggingLevel.DEBUG);
 
     public static void main(String[] args) throws IOException {
         FishIngredientRepositoryTest test = new FishIngredientRepositoryTest();
+        test.testConstructorOfFishIngredientRepository();
 
     }
 

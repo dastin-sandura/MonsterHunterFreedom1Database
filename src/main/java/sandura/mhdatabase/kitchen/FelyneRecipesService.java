@@ -16,6 +16,10 @@ public class FelyneRecipesService {
 
     Logger log = new Logger(Logger.LoggingLevel.INFO);
 
+    public FelyneRecipesService(){
+
+    }
+
     public int getNumberOfCooksFromIngredient(String ingredientName) {
 
         return -1;

@@ -1,11 +1,9 @@
 package sandura.mhdatabase;
 
-import com.sun.corba.se.impl.legacy.connection.DefaultSocketFactory;
 import sandura.mhdatabase.item.ItemRepository;
 import sandura.mhdatabase.kitchen.FelyneRecipesService;
 import sandura.mhdatabase.kitchen.RecipeRepository;
 import sandura.mhdatabase.logging.Logger;
-import sun.security.ssl.SSLServerSocketFactoryImpl;
 
 import javax.net.ServerSocketFactory;
 import javax.net.SocketFactory;
