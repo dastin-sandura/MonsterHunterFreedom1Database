@@ -1,25 +1,18 @@
-package sandura.mhdatabase;
+package sandura.mhdatabase.kitchen.ingredient;
 
-import sandura.mhdatabase.item.ItemRepository;
 import sandura.mhdatabase.kitchen.FelyneRecipesService;
-import sandura.mhdatabase.kitchen.RecipeRepository;
 import sandura.mhdatabase.logging.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
-    private static final Logger log = new Logger(Logger.LoggingLevel.INFO);
-
+public class RecipiesServiceTest {
+private static final Logger log = new Logger(Logger.LoggingLevel.INFO);
     public static void main(String[] args) {
-        ItemRepository itemRepository = new ItemRepository();
+        test();
+    }
 
-        RecipeRepository recipeRepository = new RecipeRepository();
-//        log.logInfo(recipeRepository.getRecipes().toString());
-        log.logInfo(recipeRepository.generatePossibleRecipes("Cubesteak", "Hardtack", 2));
-        log.logDebug("Contents of Items Repository");
-        log.logDebug(itemRepository.getItems());
-
+    private static void test(){
         FelyneRecipesService recipiesService = new FelyneRecipesService();
         List<String> availableIngredients = new ArrayList<>();
 //        availableIngredients.add("Cubesteak");
@@ -27,8 +20,8 @@ public class Main {
 //        availableIngredients.add("Hardtack");
         availableIngredients.add("Chili Cheese");
         availableIngredients.add("Wild Wonton");
-//        availableIngredients.add("Octofest");
-//        availableIngredients.add("Buffalo Butter");
+        availableIngredients.add("Octofest");
+        availableIngredients.add("Buffalo Butter");
 //        availableIngredients.add("Sweet Mushroom");
 //        availableIngredients.add("Sweetbug");
 //        availableIngredients.add("Spicepop");
@@ -39,14 +32,5 @@ public class Main {
 //        availableIngredients.add("Snake salmon");
         log.logInfo("Possible ingredient from " + availableIngredients);
         log.logInfo(recipiesService.getPossibleIngredientPairs(availableIngredients).toString());;
-        recipiesService.getNumberOfCooksFromIngredient("Chili Cheese");
-
-//        httpServerTests();
-    }
-
-
-
-    void runTests() {
-
     }
 }

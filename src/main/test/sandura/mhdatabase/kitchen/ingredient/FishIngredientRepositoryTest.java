@@ -16,9 +16,10 @@ public class FishIngredientRepositoryTest {
 
     public void testConstructorOfFishIngredientRepository() throws IOException {
         FishIngredientRepository repository = new FishIngredientRepository();
-        boolean b = repository.getDbFileLines().size() == 1;
+        int size = repository.getDbFileLines().size();
+        boolean b = size == 16;
         if(!b) {
-            logger.logError("Test failed");
+            logger.logError("Test failed. Expected 1 line in the Fish Ingredient Repository but found " + size);
         }
 
     }

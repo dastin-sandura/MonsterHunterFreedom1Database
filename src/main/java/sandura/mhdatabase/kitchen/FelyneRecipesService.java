@@ -5,7 +5,10 @@ import sandura.mhdatabase.kitchen.ingredient.FishIngredientRepository;
 import sandura.mhdatabase.logging.Logger;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class FelyneRecipesService {
 
@@ -20,11 +23,13 @@ public class FelyneRecipesService {
 
     }
 
+    Set<IngredientPair> pairs = new HashSet<>();
+
     public int getNumberOfCooksFromIngredient(String ingredientName) {
 
         return -1;
     }
-    public void printPossibleDishes(List<String> ingredients) {
+    public Set<IngredientPair> getPossibleIngredientPairs(List<String> ingredients) {
 
         List<String> ingredientPairs = new ArrayList<>();
 
@@ -37,17 +42,10 @@ public class FelyneRecipesService {
             }
         }
 
-        log.logDebug("generated ingredients pairs: " + ingredientPairs);
-
-        RecipeRepository recipeRepository = new RecipeRepository();
-        for (String pair : ingredientPairs) {
-            String s = recipeRepository.getRecipes().get(pair);
-            if (s != null) {
-                log.logInfo("Pair "+pair+" has effect: " + s);
-            }
-
-        }
-
-
+        List<IngredientPair> list = ingredientPairs.stream()
+                .map(s -> new IngredientPair(s.split("\\+")[0], s.split("\\+")[1]))
+                .toList();
+        pairs.addAll(list);
+        return pairs;
     }
 }

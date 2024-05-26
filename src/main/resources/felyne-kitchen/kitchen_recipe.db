@@ -2,57 +2,57 @@ id,number of cooks,ingredient categories,effect,ingredients
 1,2,meat+grain,health+20,Cubesteak+Hardtack
 2,2,fish+fish,stamina+25,Tuna head+Snake salmon
 3,2,grain+milk,health+10&stamina+25,Sweetbug+Aged Cheese
-3,2,grain+milk,health+10&stamina+25,Sweetbug+Dry Margarine
-3,2,grain+milk,health+10&stamina+25,Hardtack+Aged Cheese
-3,2,grain+milk,health+10&stamina+25,Hardtack+Dry Margarine
-4,2,grain+fish,stamina+25,Hardtack+Snake
-4,2,grain+fish,stamina+25,Sweetbug+Snake
-4,2,grain+fish,stamina+25,Hardtack+Salmon
-4,2,grain+fish,stamina+25,Sweetbug+Salmon
-4,2,grain+fish,stamina+25,Hardtack+Tuna Head
-4,2,grain+fish,stamina+25,Sweetbug+Tuna Head
-4,2,meat+fish,Attack+4,Cubesteak+Snake
-4,2,meat+fish,Attack+4,Cubesteak+Salmon
-4,2,meat+fish,Attack+4,Cubesteak+Tuna Head
-4,2,meat+fish,Attack+4,Spicy Sausage+Snake
-4,2,meat+fish,Attack+4,Spicy Sausage+Salmon
-4,2,meat+fish,Attack+4,Spicy Sausage+Tuna Head
-4,2,meat+grain,Health+20,Cubesteak+Hardtack
-4,2,meat+grain,Health+20,Cubesteak+Sweetbug
-4,2,meat+grain,Health+20,Spicy Sausage+Hardtack
-4,2,meat+grain,Health+20,Spicy Sausage+Sweetbug
-4,3,meat+meat,Health+20,?+?
-4,3,meat+fish,Thunder-resilience+3,?+?
-4,3,meat+oil,Large-attack-boost,?+?
-4,3,meat+vegies,Health+10&small-attack-boost,?+?
-4,3,meat+drink,Stamina-25,?+?
-4,3,grain+grain,Stamina+25,?+?
-4,3,grain+veggies,Stamina+50,?+?
-4,3,grain+milk,Defense+10&Stamina+25,?+?
-4,3,grain+drink,Defense+15&Water-resistance+3,?+?
-4,3,fish+meat,Thunder-resistance+3,?+?
-4,3,fish+fish,Small-attack-boost,?+?
-4,3,fish+oil,Stamina+25&Fire-res+3,?+?
-4,3,fish+veggies,Health-30,?+?
-4,3,fish+milk,Health+30,?+?
-4,3,fish+drink,Stamina-25,?+?
-4,3,oil+meat,Large-attack-boost,?+?
-4,3,oil+fish,Stamina+25&fire-resistance+3,?+?
-4,3,oil+veggies,Health-30,?+?
-4,3,oil+milk,health-20&staminda-25,?+?
-4,3,oil+drink,Small-attack-boost,?+?
-4,3,veggies+meat,Health+10&small-attack-boost,?+?
-4,3,veggies+grain,Stamina+50,?+?
-4,3,veggies+fish,health-30,?+?
-4,3,veggies+oil,health-30,?+?
-4,3,veggies+veggies,Defense+10,?+?
-4,3,veggies+milk,health+10&Defense+15,?+?
-4,3,milk+grain,defense+10&stamina+25,?+?
-4,3,milk+fish,health+30,?+?
-4,3,milk+oil,health-20&stamina-25,?+?
-4,3,milk+veggies,health+10&defense+25,?+?
-4,3,milk+milk,health+20&ice-resistance+3,?+?
-4,3,drink+meat,Stamina-25,?+?
-4,3,drink+grain,Defense+15&water-resistance+3,?+?
-4,3,drink+fish,Stamina-25,?+?
-4,3,drink+oil,small-attack-boost,?+?
+4,2,grain+milk,health+10&stamina+25,Sweetbug+Dry Margarine
+5,2,grain+milk,health+10&stamina+25,Hardtack+Aged Cheese
+6,2,grain+milk,health+10&stamina+25,Hardtack+Dry Margarine
+7,2,grain+fish,stamina+25,Hardtack+Snake
+8,2,grain+fish,stamina+25,Sweetbug+Snake
+9,2,grain+fish,stamina+25,Hardtack+Salmon
+10,2,grain+fish,stamina+25,Sweetbug+Salmon
+11,2,grain+fish,stamina+25,Hardtack+Tuna Head
+12,2,grain+fish,stamina+25,Sweetbug+Tuna Head
+13,2,meat+fish,Attack+4,Cubesteak+Snake
+14,2,meat+fish,Attack+4,Cubesteak+Salmon
+15,2,meat+fish,Attack+4,Cubesteak+Tuna Head
+16,2,meat+fish,Attack+4,Spicy Sausage+Snake
+17,2,meat+fish,Attack+4,Spicy Sausage+Salmon
+18,2,meat+fish,Attack+4,Spicy Sausage+Tuna Head
+19,2,meat+grain,Health+20,Cubesteak+Hardtack
+20,2,meat+grain,Health+20,Cubesteak+Sweetbug
+21,2,meat+grain,Health+20,Spicy Sausage+Hardtack
+22,2,meat+grain,Health+20,Spicy Sausage+Sweetbug
+23,3,meat+meat,Health+20,?+?
+24,3,meat+fish,Thunder-resilience+3,?+?
+25,3,meat+oil,Large-attack-boost,?+?
+26,3,meat+vegies,Health+10&small-attack-boost,?+?
+27,3,meat+drink,Stamina-25,?+?
+28,3,grain+grain,Stamina+25,?+?
+29,3,grain+veggies,Stamina+50,?+?
+30,3,grain+milk,Defense+10&Stamina+25,?+?
+31,3,grain+drink,Defense+15&Water-resistance+3,?+?
+32,3,fish+meat,Thunder-resistance+3,?+?
+33,3,fish+fish,Small-attack-boost,?+?
+34,3,fish+oil,Stamina+25&Fire-res+3,?+?
+35,3,fish+veggies,Health-30,?+?
+36,3,fish+milk,Health+30,?+?
+37,3,fish+drink,Stamina-25,?+?
+38,3,oil+meat,Large-attack-boost,?+?
+39,3,oil+fish,Stamina+25&fire-resistance+3,?+?
+40,3,oil+veggies,Health-30,?+?
+41,3,oil+milk,health-20&staminda-25,?+?
+42,3,oil+drink,Small-attack-boost,?+?
+43,3,veggies+meat,Health+10&small-attack-boost,?+?
+44,3,veggies+grain,Stamina+50,?+?
+45,3,veggies+fish,health-30,?+?
+46,3,veggies+oil,health-30,?+?
+47,3,veggies+veggies,Defense+10,?+?
+48,3,veggies+milk,health+10&Defense+15,?+?
+49,3,milk+grain,defense+10&stamina+25,?+?
+50,3,milk+fish,health+30,?+?
+51,3,milk+oil,health-20&stamina-25,?+?
+52,3,milk+veggies,health+10&defense+25,?+?
+53,3,milk+milk,health+20&ice-resistance+3,?+?
+54,3,drink+meat,Stamina-25,?+?
+55,3,drink+grain,Defense+15&water-resistance+3,?+?
+56,3,drink+fish,Stamina-25,?+?
+57,3,drink+oil,small-attack-boost,?+?

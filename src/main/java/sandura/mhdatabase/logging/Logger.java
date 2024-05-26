@@ -35,7 +35,7 @@ public class Logger {
     }
 
     public void logInfo(String infoMessage) {
-        if (LoggingLevel.INFO == loggingLevel) {
+        if (LoggingLevel.INFO == loggingLevel || LoggingLevel.DEBUG == loggingLevel) {
             System.out.println(infoMessage);
         }
     }

@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class RecipeRepository {
 
-    private Logger logger = new Logger(Logger.LoggingLevel.INFO);
+    private Logger logger = new Logger(Logger.LoggingLevel.INFO );
 
     class IngridientsPair {
         String firstIndredient;
@@ -32,7 +32,7 @@ public class RecipeRepository {
     public RecipeRepository() {
         recipeMap = new HashMap<>();
         try {
-            List<String> strings = Files.readAllLines(Paths.get("./src/main/resources/kitchen_recipe.db"));
+            List<String> strings = Files.readAllLines(Paths.get("./src/main/resources/felyne-kitchen/kitchen_recipe.db"));
             for (int i = 0; i < strings.size(); i++) {
                 if (i == 0) {
                     logger.logDebug("Reading table with headers:");
@@ -49,6 +49,9 @@ public class RecipeRepository {
         } catch (IOException ioe) {
             logger.logError(ioe);
         }
+        logger.logInfo("""
+                Finished loading data into RecipeRepository \
+                loaded:""" + recipeMap.keySet().size() + " rows.");
     }
 
     public Map<String, String> getRecipes() {
