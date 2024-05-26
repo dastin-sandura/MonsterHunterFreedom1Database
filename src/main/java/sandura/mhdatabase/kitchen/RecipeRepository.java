@@ -2,8 +2,12 @@ package sandura.mhdatabase.kitchen;
 
 import sandura.mhdatabase.logging.Logger;
 
-import java.io.IOException;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +15,7 @@ import java.util.Map;
 
 public class RecipeRepository {
 
-    private Logger logger = new Logger(Logger.LoggingLevel.INFO );
+    private static Logger logger = new Logger(Logger.LoggingLevel.INFO );
 
     class IngridientsPair {
         String firstIndredient;
@@ -29,10 +33,45 @@ public class RecipeRepository {
 
     Map<String, String> recipeMap;
 
+    private File getFileFromResource(String fileName) throws URISyntaxException {
+
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL resource = classLoader.getResource(fileName);
+        if (resource == null) {
+            throw new IllegalArgumentException("file not found! " + fileName);
+        } else {
+
+            // failed if files have whitespaces or special characters
+            //return new File(resource.getFile());
+
+            return new File(resource.toURI());
+        }
+
+    }
+    // print a file
+    private static void printFile(File file) {
+
+        List<String> lines;
+        try {
+            lines = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8);
+            lines.forEach(s -> logger.logError(s));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
     public RecipeRepository() {
         recipeMap = new HashMap<>();
         try {
-            List<String> strings = Files.readAllLines(Paths.get("./src/main/resources/felyne-kitchen/kitchen_recipe.db"));
+            Path path = Paths.get("kitchen_recipe.db");
+//            ClassLoader.getSystemResourceAsStream("kitchen_recipe.db");
+//            File fileFromResource = getFileFromResource("kitchen_recipe.db");
+//            printFile(fileFromResource);
+
+            Path currentPath = Paths.get(".");
+            logger.logInfo("absolute" + currentPath.toAbsolutePath().toString());
+            logger.logInfo("real path" + currentPath.toRealPath().toString());
+            List<String> strings = Files.readAllLines(path);
             for (int i = 0; i < strings.size(); i++) {
                 if (i == 0) {
                     logger.logDebug("Reading table with headers:");
@@ -48,6 +87,10 @@ public class RecipeRepository {
             }
         } catch (IOException ioe) {
             logger.logError(ioe);
+            logger.logError("Current path is " + Paths.get(".").toAbsolutePath());
+            Path absolutePath = Paths.get("kitchen_recipe.db").toAbsolutePath();
+            logger.logError("Is this path a directory? " + absolutePath+"path is " + new File(String.valueOf(absolutePath)).isDirectory() );
+//            logger.logError("Current path is " + Paths.get(".").getR());
         }
         logger.logInfo("""
                 Finished loading data into RecipeRepository \

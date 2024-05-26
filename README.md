@@ -25,4 +25,4 @@ Package class files into a jar:
 
 1. Navigate to compiled directory
 2. run command:
-jar cvf MHDB.war *
+jar cvf ../artifact-war/MHDB.war *
