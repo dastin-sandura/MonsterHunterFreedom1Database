@@ -34,7 +34,7 @@ public class RecipeRepository {
         }
     }
 
-    Map<String, String> recipeMap;
+    private static Map<String, String> recipeMap;
 
     private File getFileFromResource(String fileName) throws URISyntaxException {
 
@@ -68,7 +68,7 @@ public class RecipeRepository {
     }
 
     public void loadDataFromBaseDir(String pathString) {
-        recipeMap = new HashMap<>();
+//        recipeMap = new HashMap<>();
         try {
             Path path = Paths.get(pathString);
 //            ClassLoader.getSystemResourceAsStream("kitchen_recipe.db");
@@ -81,11 +81,11 @@ public class RecipeRepository {
             List<String> strings = Files.readAllLines(path);
             for (int i = 0; i < strings.size(); i++) {
                 if (i == 0) {
-                    logger.log(Level.INFO,"Reading table with headers:");
-                    logger.log(Level.INFO,strings.get(i));
+//                    logger.log(Level.INFO,"Reading table with headers:");
+//                    logger.log(Level.INFO,strings.get(i));
                 } else {
                     String row = strings.get(i);
-                    logger.log(Level.INFO,row);
+//                    logger.log(Level.INFO,row);
                     String[] split = row.split(",");
                     String[] ingredients = split[4].split("\\+");
                     recipeMap.put(ingredients[0] + "+" + ingredients[1], split[3]);
@@ -93,10 +93,10 @@ public class RecipeRepository {
 
             }
         } catch (IOException ioe) {
-            logger.log(Level.INFO, ioe, () -> ioe.getMessage());
-            logger.log(Level.INFO,"Current path is " + Paths.get(".").toAbsolutePath());
+//            logger.log(Level.INFO, ioe, () -> ioe.getMessage());
+//            logger.log(Level.INFO,"Current path is " + Paths.get(".").toAbsolutePath());
             Path absolutePath = Paths.get("kitchen_recipe.db").toAbsolutePath();
-            logger.log(Level.INFO,"Is this path a directory? " + absolutePath+"path is " + new File(String.valueOf(absolutePath)).isDirectory() );
+//            logger.log(Level.INFO,"Is this path a directory? " + absolutePath+"path is " + new File(String.valueOf(absolutePath)).isDirectory() );
 //            logger.log(Level.INFO,"Current path is " + Paths.get(".").getR());
         }
         logger.log(Level.INFO,"""

@@ -1,6 +1,5 @@
 package sandura.mhdatabase.servlet;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,6 +16,7 @@ import java.util.logging.Logger;
 
 public class DatabaseServlet extends HttpServlet {
 
+    public static final RecipeRepository recipeRepository = new RecipeRepository();
     PrintWriter writer;
     private Logger logger = Logger.getLogger(DatabaseServlet.class.getName());
 
@@ -44,28 +44,28 @@ public class DatabaseServlet extends HttpServlet {
         String webAppWebInfDirectory = getServletContext().getRealPath("/").toString() + "WEB-INF/";
 
         String kitchenRecipeDbFilePath = webAppWebInfDirectory + "kitchen_recipe.db";
-        print("getServletContext().getRealPath(\"/\") : " + kitchenRecipeDbFilePath);
+//        print("getServletContext().getRealPath(\"/\") : " + kitchenRecipeDbFilePath);
 //        print("Attributes:");
 //        getServletContext().getAttributeNames().asIterator().forEachRemaining(s -> print(s + " = " + getServletContext().getAttribute(s)));
-        print("First parameter %s".formatted(first));
-        print("Second parameter %s".formatted(second));
+//        print("First parameter %s".formatted(first));
+//        print("Second parameter %s".formatted(second));
 
         FelyneRecipesService felyneRecipesService = new FelyneRecipesService();
 
-        RecipeRepository recipeRepository = new RecipeRepository();
         if (recipeRepository.getRecipes().keySet().isEmpty()){
+            logger.log(Level.INFO, "Loading data because recipe repo is empty");
             recipeRepository.loadDataFromBaseDir(kitchenRecipeDbFilePath);
         }
         if (first != null && second != null) {
+            logger.log(Level.INFO, "Checking possibilites for " + first + " and " + second);
             List<String> requestParameters = new ArrayList<>();
             requestParameters.add(first);
             requestParameters.add(second);
-            print("Possible ingredient from " + requestParameters);
-            print(felyneRecipesService.getPossibleIngredientPairs(requestParameters).toString());
+//            print("Possible ingredient from " + requestParameters);
+            print( "Possible ingredient from " +felyneRecipesService.getPossibleIngredientPairs(requestParameters).toString());
 
-            print("Recipies = " + recipeRepository.getRecipes());
             try {
-                print("Possible recipies: " + recipeRepository.generatePossibleRecipes(first, second, 0));
+                print("Effect from ingredients: " + recipeRepository.generatePossibleRecipes(first, second, 0));
             } catch (Exception e) {
                 print(e.toString());
             }
@@ -73,36 +73,46 @@ public class DatabaseServlet extends HttpServlet {
         }
         ItemRepository var1 = new ItemRepository();
         var1.loadDataFromPath(webAppWebInfDirectory + "item.db");
-        print(recipeRepository.generatePossibleRecipes("Cubesteak", "Hardtack", 2));
-        print("Contents of Items Repository");
+//        print(recipeRepository.generatePossibleRecipes("Cubesteak", "Hardtack", 2));
+//        print("Contents of Items Repository");
         //print(var1.getItems().toString());
         ArrayList var4 = new ArrayList();
         var4.add("Chili Cheese");
         var4.add("Wild Wonton");
-        print("Possible ingredient from " + var4);
-        print(felyneRecipesService.getPossibleIngredientPairs(var4).toString());
+//        print("Possible ingredient from " + var4);
+//        print(felyneRecipesService.getPossibleIngredientPairs(var4).toString());
         felyneRecipesService.getNumberOfCooksFromIngredient("Chili Cheese");
         printAsIs("""
                        <form action="" method"get">
-                                   <!-- 
-                                   <div>
-                                       <label for="first">First ingredient</label>
-                                       <input type="text" name="first" id="first"/>
-                                   </div>
-                                   <div>
-                                       <label for="second">Second ingredient</label>
-                                       <input type="text" name="second" id="second"/>
-                                   </div>
-                                   -->
+                                    <p>Choose one first ingredient</p>
                                    <div>
                                        Cubesteak
-                                       <label for="second">Second ingredient</label>
                                        <input type="checkbox" name="first" value="Cubesteak" id="second"/>
                                    </div>
+                                  <div>
+                                       Dry Margarine
+                                       <input type="checkbox" name="first" value="Dry Margarine" id="second"/>
+                                   </div>
+                                 
+                                   <div>
+                                       Tuna head
+                                       <input type="checkbox" name="first" value="Tuna head" id="second"/>
+                                   </div>
+                                   
+                                   <p>Choose one second</p>
+                                   
                                    <div>
                                        Hardtack
-                                       <label for="second">Second ingredient</label>
                                        <input type="checkbox" name="second" value="Hardtack" id="second"/>
+                                   </div>
+                                  
+                                   <div>
+                                       Snake salmon
+                                       <input type="checkbox" name="second" value="Snake salmon" id="second"/>
+                                   </div>
+                                           <div>
+                                       Sweetbug
+                                       <input type="checkbox" name="second" value="Sweetbug" id="second"/>
                                    </div>
                                    <div>
                                        <input type="submit" value="Generate" />
@@ -110,6 +120,7 @@ public class DatabaseServlet extends HttpServlet {
                                </form>
                 """);
 
+        print("Combinations loaded from file = " + recipeRepository.getRecipes());
         printAsIs("</body>");
         printAsIs("</html>");
 
