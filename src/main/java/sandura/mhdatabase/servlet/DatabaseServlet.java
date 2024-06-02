@@ -32,15 +32,21 @@ public class DatabaseServlet extends HttpServlet {
         printAsIs("<title>MHFreedom Dish generator</title>");
 
         printAsIs("</head>");
-
         printAsIs("<body>");
 
+//        print("Value of environment variable 'catalina.base' is :" + System.getProperty("catalina.base"));
+        print("getServletContext().getRealPath(\"/\") : " + getServletContext().getRealPath("/").toString());
+//        print("Attributes:");
+//        getServletContext().getAttributeNames().asIterator().forEachRemaining(s -> print(s + " = " + getServletContext().getAttribute(s)));
         print("First parameter %s".formatted(first));
         print("Second parameter %s".formatted(second));
 
         FelyneRecipesService felyneRecipesService = new FelyneRecipesService();
 
         RecipeRepository recipeRepository = new RecipeRepository();
+        if (recipeRepository.getRecipes().keySet().isEmpty()){
+//            recipeRepository.loadDataFromBaseDir(getServletContext().getRealPath("/"));
+        }
         if (first != null && second != null) {
             List<String> requestParameters = new ArrayList<>();
             requestParameters.add(first);

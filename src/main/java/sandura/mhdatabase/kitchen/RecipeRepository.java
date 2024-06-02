@@ -61,6 +61,10 @@ public class RecipeRepository {
 
     }
     public RecipeRepository() {
+        loadDataFromBaseDir();
+    }
+
+    public void loadDataFromBaseDir() {
         recipeMap = new HashMap<>();
         try {
             Path path = Paths.get("kitchen_recipe.db");
