@@ -5,17 +5,17 @@ id,number of cooks,ingredient categories,effect,ingredients
 4,2,grain+milk,health+10&stamina+25,Sweetbug+Dry Margarine
 5,2,grain+milk,health+10&stamina+25,Hardtack+Aged Cheese
 6,2,grain+milk,health+10&stamina+25,Hardtack+Dry Margarine
-7,2,grain+fish,stamina+25,Hardtack+Snake
-8,2,grain+fish,stamina+25,Sweetbug+Snake
-9,2,grain+fish,stamina+25,Hardtack+Salmon
-10,2,grain+fish,stamina+25,Sweetbug+Salmon
+7,2,grain+fish,stamina+25,Hardtack+Snake salmon
+8,2,grain+fish,stamina+25,Sweetbug+Snake salmon
+9,2,grain+fish,stamina+25,Hardtack+Snake salmon
+10,2,grain+fish,stamina+25,Sweetbug+Snake salmon
 11,2,grain+fish,stamina+25,Hardtack+Tuna Head
 12,2,grain+fish,stamina+25,Sweetbug+Tuna Head
-13,2,meat+fish,Attack+4,Cubesteak+Snake
-14,2,meat+fish,Attack+4,Cubesteak+Salmon
+13,2,meat+fish,Attack+4,Cubesteak+Snake Snake salmon
+14,2,meat+fish,Attack+4,Cubesteak+Snake salmon
 15,2,meat+fish,Attack+4,Cubesteak+Tuna Head
-16,2,meat+fish,Attack+4,Spicy Sausage+Snake
-17,2,meat+fish,Attack+4,Spicy Sausage+Salmon
+16,2,meat+fish,Attack+4,Spicy Sausage+Snake salmon
+17,2,meat+fish,Attack+4,Spicy Sausage+Snake salmon
 18,2,meat+fish,Attack+4,Spicy Sausage+Tuna Head
 19,2,meat+grain,Health+20,Cubesteak+Hardtack
 20,2,meat+grain,Health+20,Cubesteak+Sweetbug
