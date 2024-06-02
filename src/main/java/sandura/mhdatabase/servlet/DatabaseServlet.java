@@ -113,9 +113,19 @@ public class DatabaseServlet extends HttpServlet {
                                        Snake salmon
                                        <input type="checkbox" name="ingredient" value="Snake salmon" id="second"/>
                                    </div>
-                                           <div>
+                                   <div>
                                        Sweetbug
                                        <input type="checkbox" name="ingredient" value="Sweetbug" id="second"/>
+                                   </div>
+                                  
+                                   <div>
+                                       Spicy Sausage
+                                       <input type="checkbox" name="ingredient" value="Spicy Sausage" id="second"/>
+                                   </div>
+                                   
+                                   <div>
+                                       Aged Cheese
+                                       <input type="checkbox" name="ingredient" value="Aged Cheese" id="second"/>
                                    </div>
                                    <div>
                                        <input type="submit" value="Generate" />
