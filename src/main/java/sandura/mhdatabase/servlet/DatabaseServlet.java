@@ -41,7 +41,9 @@ public class DatabaseServlet extends HttpServlet {
         printAsIs("<body>");
 
 //        print("Value of environment variable 'catalina.base' is :" + System.getProperty("catalina.base"));
-        String kitchenRecipeDbFilePath = getServletContext().getRealPath("/").toString() + "WEB-INF/kitchen_recipe.db";
+        String webAppWebInfDirectory = getServletContext().getRealPath("/").toString() + "WEB-INF/";
+
+        String kitchenRecipeDbFilePath = webAppWebInfDirectory + "kitchen_recipe.db";
         print("getServletContext().getRealPath(\"/\") : " + kitchenRecipeDbFilePath);
 //        print("Attributes:");
 //        getServletContext().getAttributeNames().asIterator().forEachRemaining(s -> print(s + " = " + getServletContext().getAttribute(s)));
@@ -70,6 +72,7 @@ public class DatabaseServlet extends HttpServlet {
 
         }
         ItemRepository var1 = new ItemRepository();
+        var1.loadDataFromPath(webAppWebInfDirectory + "item.db");
         print(recipeRepository.generatePossibleRecipes("Cubesteak", "Hardtack", 2));
         print("Contents of Items Repository");
         //print(var1.getItems().toString());

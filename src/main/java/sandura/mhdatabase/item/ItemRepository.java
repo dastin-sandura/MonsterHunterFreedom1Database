@@ -12,8 +12,9 @@ import java.util.Map;
 public class ItemRepository {
 
     Logger log = new Logger(Logger.LoggingLevel.INFO);
-    public ItemRepository() {
-        File itemsFileDatabase = new File("./src/main/resources/item.db");
+
+    public void loadDataFromPath(String pathToResources) {
+        File itemsFileDatabase = new File(pathToResources);
         log.logDebug(itemsFileDatabase.getAbsolutePath());
         log.logDebug(itemsFileDatabase.isFile());
         log.logDebug(itemsFileDatabase.isDirectory());
@@ -53,6 +54,7 @@ public class ItemRepository {
             System.err.println(ioe);
         }
     }
+
     private Map<String,String> items;
 
     public Map<String,String> getItems() {
