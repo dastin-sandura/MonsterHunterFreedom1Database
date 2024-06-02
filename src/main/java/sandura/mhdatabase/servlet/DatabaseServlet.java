@@ -12,13 +12,19 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DatabaseServlet extends HttpServlet {
 
     PrintWriter writer;
+    private Logger logger = Logger.getLogger(DatabaseServlet.class.getName());
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+//        Logger.getLogger (DatabaseServlet.class.getName()).log(Level.WARNING, e.getMessage(), e);
+        logger.log(Level.INFO, "hello world");
         req.getQueryString();
         String first = req.getParameter("first");
         String second = req.getParameter("second");
@@ -35,7 +41,8 @@ public class DatabaseServlet extends HttpServlet {
         printAsIs("<body>");
 
 //        print("Value of environment variable 'catalina.base' is :" + System.getProperty("catalina.base"));
-        print("getServletContext().getRealPath(\"/\") : " + getServletContext().getRealPath("/").toString());
+        String kitchenRecipeDbFilePath = getServletContext().getRealPath("/").toString() + "WEB-INF/kitchen_recipe.db";
+        print("getServletContext().getRealPath(\"/\") : " + kitchenRecipeDbFilePath);
 //        print("Attributes:");
 //        getServletContext().getAttributeNames().asIterator().forEachRemaining(s -> print(s + " = " + getServletContext().getAttribute(s)));
         print("First parameter %s".formatted(first));
@@ -44,9 +51,9 @@ public class DatabaseServlet extends HttpServlet {
         FelyneRecipesService felyneRecipesService = new FelyneRecipesService();
 
         RecipeRepository recipeRepository = new RecipeRepository();
-        if (recipeRepository.getRecipes().keySet().isEmpty()){
-//            recipeRepository.loadDataFromBaseDir(getServletContext().getRealPath("/"));
-        }
+//        if (recipeRepository.getRecipes().keySet().isEmpty()){
+//            recipeRepository.loadDataFromBaseDir(kitchenRecipeDbFilePath);
+//        }
         if (first != null && second != null) {
             List<String> requestParameters = new ArrayList<>();
             requestParameters.add(first);
@@ -54,7 +61,12 @@ public class DatabaseServlet extends HttpServlet {
             print("Possible ingredient from " + requestParameters);
             print(felyneRecipesService.getPossibleIngredientPairs(requestParameters).toString());
 
-            print("Possible recipies: " + recipeRepository.generatePossibleRecipes(first, second, 0));
+            print("Recipies = " + recipeRepository.getRecipes());
+            try {
+                print("Possible recipies: " + recipeRepository.generatePossibleRecipes(first, second, 0));
+            } catch (Exception e) {
+                print(e.toString());
+            }
 
         }
         ItemRepository var1 = new ItemRepository();
