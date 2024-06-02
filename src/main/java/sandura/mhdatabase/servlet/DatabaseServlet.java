@@ -53,9 +53,9 @@ public class DatabaseServlet extends HttpServlet {
         FelyneRecipesService felyneRecipesService = new FelyneRecipesService();
 
         RecipeRepository recipeRepository = new RecipeRepository();
-//        if (recipeRepository.getRecipes().keySet().isEmpty()){
-//            recipeRepository.loadDataFromBaseDir(kitchenRecipeDbFilePath);
-//        }
+        if (recipeRepository.getRecipes().keySet().isEmpty()){
+            recipeRepository.loadDataFromBaseDir(kitchenRecipeDbFilePath);
+        }
         if (first != null && second != null) {
             List<String> requestParameters = new ArrayList<>();
             requestParameters.add(first);
@@ -84,13 +84,25 @@ public class DatabaseServlet extends HttpServlet {
         felyneRecipesService.getNumberOfCooksFromIngredient("Chili Cheese");
         printAsIs("""
                        <form action="" method"get">
+                                   <!-- 
                                    <div>
                                        <label for="first">First ingredient</label>
                                        <input type="text" name="first" id="first"/>
                                    </div>
                                    <div>
                                        <label for="second">Second ingredient</label>
-                                       <input type="text" name="second" id="second"/
+                                       <input type="text" name="second" id="second"/>
+                                   </div>
+                                   -->
+                                   <div>
+                                       Cubesteak
+                                       <label for="second">Second ingredient</label>
+                                       <input type="checkbox" name="first" value="Cubesteak" id="second"/>
+                                   </div>
+                                   <div>
+                                       Hardtack
+                                       <label for="second">Second ingredient</label>
+                                       <input type="checkbox" name="second" value="Hardtack" id="second"/>
                                    </div>
                                    <div>
                                        <input type="submit" value="Generate" />

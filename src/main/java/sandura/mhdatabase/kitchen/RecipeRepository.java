@@ -65,9 +65,6 @@ public class RecipeRepository {
     }
     public RecipeRepository() {
         recipeMap = new HashMap<>();
-//        recipeMap = new HashMap<>();
-        //        System.out.println("RecipeRepository constructor");
-//                loadDataFromBaseDir("\"kitchen_recipe.db\"");
     }
 
     public void loadDataFromBaseDir(String pathString) {
