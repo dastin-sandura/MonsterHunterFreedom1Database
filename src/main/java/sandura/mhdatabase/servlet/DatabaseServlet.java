@@ -29,6 +29,13 @@ public class DatabaseServlet extends HttpServlet {
         String first = req.getParameter("first");
         String second = req.getParameter("second");
 
+        String[] ingredients = req.getParameterValues("ingredient");
+        if (ingredients!= null && ingredients.length == 2) {
+            first = ingredients[0];
+            second = ingredients[1];
+
+        }
+
         //        super.doGet(req, resp);
         writer = resp.getWriter();
 
@@ -84,35 +91,31 @@ public class DatabaseServlet extends HttpServlet {
         felyneRecipesService.getNumberOfCooksFromIngredient("Chili Cheese");
         printAsIs("""
                        <form action="" method"get">
-                                    <p>Choose one first ingredient</p>
                                    <div>
                                        Cubesteak
-                                       <input type="checkbox" name="first" value="Cubesteak" id="second"/>
+                                       <input type="checkbox" name="ingredient" value="Cubesteak" id="second"/>
                                    </div>
                                   <div>
                                        Dry Margarine
-                                       <input type="checkbox" name="first" value="Dry Margarine" id="second"/>
+                                       <input type="checkbox" name="ingredient" value="Dry Margarine" id="second"/>
                                    </div>
                                  
                                    <div>
                                        Tuna head
-                                       <input type="checkbox" name="first" value="Tuna head" id="second"/>
+                                       <input type="checkbox" name="ingredient" value="Tuna head" id="second"/>
                                    </div>
-                                   
-                                   <p>Choose one second</p>
-                                   
                                    <div>
                                        Hardtack
-                                       <input type="checkbox" name="second" value="Hardtack" id="second"/>
+                                       <input type="checkbox" name="ingredient" value="Hardtack" id="second"/>
                                    </div>
                                   
                                    <div>
                                        Snake salmon
-                                       <input type="checkbox" name="second" value="Snake salmon" id="second"/>
+                                       <input type="checkbox" name="ingredient" value="Snake salmon" id="second"/>
                                    </div>
                                            <div>
                                        Sweetbug
-                                       <input type="checkbox" name="second" value="Sweetbug" id="second"/>
+                                       <input type="checkbox" name="ingredient" value="Sweetbug" id="second"/>
                                    </div>
                                    <div>
                                        <input type="submit" value="Generate" />
