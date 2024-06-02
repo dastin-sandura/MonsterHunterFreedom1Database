@@ -110,6 +110,10 @@ public class RecipeRepository {
 
     public String generatePossibleRecipes(String first, String second, int chefsCount) {
         logger.log(Level.INFO,"Possible combinations:");
-        return recipeMap.get(first + "+" + second);
+        String s = recipeMap.get(first + "+" + second);
+        if (s == null) {
+            s = recipeMap.get( second + "+" + first);
+        }
+        return s;
     }
 }
