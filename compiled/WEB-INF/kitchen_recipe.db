@@ -1,5 +1,7 @@
 id,number of cooks,ingredient categories,effect,ingredients
 1,2,meat+grain,health+20,Cubesteak+Hardtack
+1,2,drink+fish,stamin-25,Milk Pop+Tuna Head
+1,2,drink+fish,stamin-25,Milk Pop+Snake salmon
 2,2,fish+fish,stamina+25,Tuna head+Snake salmon
 3,2,grain+milk,health+10&stamina+25,Sweetbug+Aged Cheese
 4,2,grain+milk,health+10&stamina+25,Sweetbug+Dry Margarine
@@ -11,7 +13,7 @@ id,number of cooks,ingredient categories,effect,ingredients
 10,2,grain+fish,stamina+25,Sweetbug+Snake salmon
 11,2,grain+fish,stamina+25,Hardtack+Tuna Head
 12,2,grain+fish,stamina+25,Sweetbug+Tuna Head
-13,2,meat+fish,Attack+4,Cubesteak+Snake Snake salmon
+13,2,meat+fish,Attack+4,Cubesteak+Snake salmon
 14,2,meat+fish,Attack+4,Cubesteak+Snake salmon
 15,2,meat+fish,Attack+4,Cubesteak+Tuna Head
 16,2,meat+fish,Attack+4,Spicy Sausage+Snake salmon

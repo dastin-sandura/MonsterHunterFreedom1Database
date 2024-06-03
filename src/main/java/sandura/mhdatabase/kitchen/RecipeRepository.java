@@ -88,7 +88,7 @@ public class RecipeRepository {
 //                    logger.log(Level.INFO,row);
                     String[] split = row.split(",");
                     String[] ingredients = split[4].split("\\+");
-                    recipeMap.put(ingredients[0] + "+" + ingredients[1], split[3]);
+                    recipeMap.put(ingredients[0].toLowerCase() + "+" + ingredients[1].toLowerCase(), split[3]);
                 }
 
             }
