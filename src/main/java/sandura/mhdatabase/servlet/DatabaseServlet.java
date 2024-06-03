@@ -145,7 +145,7 @@ public class DatabaseServlet extends HttpServlet {
             logger.log(Level.INFO, "Finished printing ingredients");
             FishIngredientRepository fishIngredientRepository = new FishIngredientRepository();
             fishIngredientRepository.loadDataFromFile(webAppWebInfDirectory + "fish_ingredient.db");
-            print(fishIngredientRepository.getFishMap().toString());
+            logger.log(Level.INFO, fishIngredientRepository.getFishMap().toString());
             print("Fish ingredients - generated from file");
 
             fishIngredientRepository.getFishMap().forEach((level, fishes) -> {
