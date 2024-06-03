@@ -6,17 +6,21 @@ import jakarta.servlet.http.HttpServletResponse;
 import sandura.mhdatabase.item.ItemRepository;
 import sandura.mhdatabase.kitchen.FelyneRecipesService;
 import sandura.mhdatabase.kitchen.RecipeRepository;
+import sandura.mhdatabase.kitchen.ingredient.DrinkIngredientRepository;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DatabaseServlet extends HttpServlet {
 
-    public static final RecipeRepository recipeRepository = new RecipeRepository();
+    private static final RecipeRepository recipeRepository = new RecipeRepository();
+    private final DrinkIngredientRepository drinkIngredientRepository = new DrinkIngredientRepository();
+
     PrintWriter writer;
     private Logger logger = Logger.getLogger(DatabaseServlet.class.getName());
 
@@ -80,16 +84,27 @@ public class DatabaseServlet extends HttpServlet {
         }
         ItemRepository var1 = new ItemRepository();
         var1.loadDataFromPath(webAppWebInfDirectory + "item.db");
-//        print(recipeRepository.generatePossibleRecipes("Cubesteak", "Hardtack", 2));
-//        print("Contents of Items Repository");
-        //print(var1.getItems().toString());
-        ArrayList var4 = new ArrayList();
-        var4.add("Chili Cheese");
-        var4.add("Wild Wonton");
-//        print("Possible ingredient from " + var4);
-//        print(felyneRecipesService.getPossibleIngredientPairs(var4).toString());
+
+        Map<Integer, List<String>> asMap = drinkIngredientRepository.getAsMap();
+        if(asMap.isEmpty()) {
+            drinkIngredientRepository.loadDataFromDirectory(webAppWebInfDirectory + "drink_ingredient.db");
+        }
+        print("Drink ingredients - auto generated");
+        printAsIs("<form action=\"\" method\"get\">");
+        asMap.forEach((level, ingredientList) -> {
+            ingredientList.forEach(ingredient -> {
+                printAsIs("<div>");
+                printAsIs(ingredient + "(level " + level + ")");
+                printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + ingredient + "\"/>");
+                printAsIs("</div>");
+            });
+        });
+        printAsIs("</form>");
+
+
         felyneRecipesService.getNumberOfCooksFromIngredient("Chili Cheese");
         printAsIs("""
+                       <p>Manually created form</p>
                        <form action="" method"get">
                                    <div>
                                        Cubesteak

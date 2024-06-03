@@ -16,7 +16,9 @@ public class DrinkIngredientRepositoryTest {
 
     public void testRepositoryConstructor() throws IOException {
         DrinkIngredientRepository repository = new DrinkIngredientRepository();
-        boolean b = repository.getDatabaseFileContents().size() == 6;
+        repository.loadDataFromDirectory(DrinkIngredientRepository.DATABASE_FILE_PATH);
+        boolean b = repository.getDatabaseFileContents().size() == 5;
+        System.out.println(repository.getAsMap());
         if (!b) {
             StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[1];
             logger.logError("Test failed in " + stackTraceElement.getClassName() + "#" + stackTraceElement.getMethodName());
