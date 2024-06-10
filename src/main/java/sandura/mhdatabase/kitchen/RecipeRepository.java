@@ -96,9 +96,10 @@ public class RecipeRepository {
                     String[] split = row.split(",");
                     String[] ingredients = split[4].split("\\+");
                     String requiredIngredients = ingredients[0].toLowerCase() + "+" + ingredients[1].toLowerCase();
-                    recipeMap.put(requiredIngredients, split[3]);
+                    String effect = split[3];
+                    recipeMap.put(requiredIngredients, effect);
                     String cookCount = split[1];
-                    recipeByCookCountMap.get(Integer.parseInt(cookCount)).add(requiredIngredients);
+                    recipeByCookCountMap.get(Integer.parseInt(cookCount)).add(requiredIngredients + "=" + effect);
                 }
 
             }
