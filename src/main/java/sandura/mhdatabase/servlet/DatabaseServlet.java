@@ -219,12 +219,16 @@ public class DatabaseServlet extends HttpServlet {
 //                               </form>
 //                """);
 
-            print("Combinations loaded from file:");
-            printAsIs("<ol>");
-            if (finalLevelFiltering == null) {
 
-            recipeRepository.getRecipes().forEach((s, s2) -> printAsIs("<li>" + s + " = " + s2 + "</li>"));
+            if (finalLevelFiltering == null) {
+                print("All combinations loaded from file:");
+                printAsIs("<ol>");
+                logger.log(Level.INFO, "Printing all recipies without filtering");
+                recipeRepository.getRecipes().forEach((s, s2) -> printAsIs("<li>" + s + " = " + s2 + "</li>"));
             } else {
+                print("Combinations loaded from file only when you have " + finalLevelFiltering + " Cat cooks.");
+                printAsIs("<ol>");
+                logger.log(Level.INFO, "Printing all recipies for cook count " + finalLevelFiltering);
                 recipeRepository.getRecipeByCookCountMap().get(Integer.parseInt(finalLevelFiltering)).forEach(s -> printAsIs("<li>" + s + "</li>"));
             }
             printAsIs("</ol>");

@@ -98,7 +98,7 @@ public class RecipeRepository {
                     String requiredIngredients = ingredients[0].toLowerCase() + "+" + ingredients[1].toLowerCase();
                     recipeMap.put(requiredIngredients, split[3]);
                     String cookCount = split[1];
-                    recipeByCookCountMap.get(cookCount).add(requiredIngredients);
+                    recipeByCookCountMap.get(Integer.parseInt(cookCount)).add(requiredIngredients);
                 }
 
             }
