@@ -53,22 +53,85 @@ id,number of cooks,ingredient categories,effect,ingredient1+ingredient2
 55,3,drink+grain,Defense+15&water-resistance+3,?+?33
 56,3,drink+fish,Stamina-25,?+?34
 57,3,drink+oil,small-attack-boost,?+?35
-58,4,fish+drink,Stamina-25,ingredient1+ingredient2
-58,4,meat+drink,health-40,ingredient3+ingredient4
-58,4,oil+drink,Stamina-50,ingredient5+ingredient6
-58,4,milk+drink,Health+20,ingredient7+ingredient8
-58,4,veggies+drink,Health+40,ingredient9+ingredient10
-58,4,fish+fish,Stamina+50,ingredient11+ingredient12
-58,4,grain+fish,Stamina+25&Defense+5,ingredient13+ingredient14
-58,4,meat+fish,Health+10&Defense+5,ingredient15+ingredient16
-58,4,oil+fish,Defense+5,ingredient17+ingredient18
-58,4,veggies+fish,Health+10,ingredient19+ingredient20
-58,4,milk+grain,Attack+4&Defense+5,ingredient21+ingredient22
-58,4,oil+grain,Stamina+50,ingredient23+ingredient24
-58,4,veggies+grain,Stamina+50,ingredient25+ingredient26
-58,4,meat+meat,Health+30,ingredient27+ingredient28
-58,4,meat+milk,Health+40,ingredient29+ingredient30
-58,4,meat+oil,Attack+4,ingredient31+ingredient32
-58,4,meat+Veggies,Attack+4,ingredient33+ingredient34
-58,4,oil+oil,Attack+4,ingredient35+ingredient36
-58,4,veggies+veggies,Health+10&Stamina+25,ingredient37+ingredient38
+58,4,fish+drink,Stamina-25,Panish+King Squid
+58,4,fish+drink,Stamina-25,Panish+Queen Shrimp
+58,4,fish+drink,Stamina-25,Panish+Tortoiseshell
+58,4,meat+drink,health-40,Panish+Dragon Foot
+58,4,meat+drink,health-40,Panish+Great Mutton
+58,4,meat+drink,health-40,Panish+White Liver
+58,4,meat+drink,health-40,Panish+Wild Wonton
+58,4,oil+drink,Stamina-50,Panish+Powerlard
+58,4,oil+drink,Stamina-50,Panish+Seafood Jam
+58,4,milk+drink,Health+20,Panish+Sirloin Egg
+58,4,veggies+drink,Health+40,Panish+Cannon Lettuce
+58,4,veggies+drink,Health+40,Panish+Pinespice
+58,4,veggies+drink,Health+40,Panish+Rare Onion
+58,4,fish+fish,Stamina+50,King Squid+Queen Shrimp
+58,4,fish+fish,Stamina+50,King Squid+Tortoiseshell
+58,4,fish+fish,Stamina+50,Tortoiseshell+Queen Shrimp
+58,4,grain+fish,Stamina+25&Defense+5,Megabagel+King Squid
+58,4,grain+fish,Stamina+25&Defense+5,Megabagel+Queen Shrimp
+58,4,grain+fish,Stamina+25&Defense+5,Megabagel+Tortoiseshell
+58,4,meat+fish,Health+10&Defense+5,Dragon Foot+King Squid
+58,4,meat+fish,Health+10&Defense+5,Great Mutton+King Squid
+58,4,meat+fish,Health+10&Defense+5,White Liver+King Squid
+58,4,meat+fish,Health+10&Defense+5,Wild Wonton+King Squid
+58,4,meat+fish,Health+10&Defense+5,Dragon Foot+Queen Shrimp
+58,4,meat+fish,Health+10&Defense+5,Great Mutton+Queen Shrimp
+58,4,meat+fish,Health+10&Defense+5,White Liver+Queen Shrimp
+58,4,meat+fish,Health+10&Defense+5,Wild Wonton+Queen Shrimp
+58,4,meat+fish,Health+10&Defense+5,Dragon Foot+Tortoiseshell
+58,4,meat+fish,Health+10&Defense+5,Great Mutton+Tortoiseshell
+58,4,meat+fish,Health+10&Defense+5,White Liver+Tortoiseshell
+58,4,meat+fish,Health+10&Defense+5,Wild Wonton+Tortoiseshell
+58,4,oil+fish,Defense+5,King Squid+Powerlard
+58,4,oil+fish,Defense+5,Queen Shrimp+Powerlard
+58,4,oil+fish,Defense+5,Tortoiseshell+Powerlard
+58,4,oil+fish,Defense+5,King Squid+Seafood Jam
+58,4,oil+fish,Defense+5,Queen Shrimp+Seafood Jam
+58,4,oil+fish,Defense+5,Tortoiseshell+Seafood Jam
+58,4,veggies+fish,Health+10,Cannon Lettuce+King Squid
+58,4,veggies+fish,Health+10,Pinespice+King Squid
+58,4,veggies+fish,Health+10,Rare Onion+King Squid
+58,4,veggies+fish,Health+10,Cannon Lettuce+Queen Shrimp
+58,4,veggies+fish,Health+10,Pinespice+Queen Shrimp
+58,4,veggies+fish,Health+10,Rare Onion+Queen Shrimp
+58,4,veggies+fish,Health+10,Cannon Lettuce+Tortoiseshell
+58,4,veggies+fish,Health+10,Pinespice+Tortoiseshell
+58,4,veggies+fish,Health+10,Rare Onion+Tortoiseshell
+58,4,milk+grain,Attack+4&Defense+5,Sirloin Egg+Megabagel
+58,4,oil+grain,Stamina+50,Megabagel+Powerlard
+58,4,oil+grain,Stamina+50,Megabagel+Seafood Jam
+58,4,veggies+grain,Stamina+50,Megabagel+Cannon Lettuce
+58,4,veggies+grain,Stamina+50,Megabagel+Pinespice
+58,4,veggies+grain,Stamina+50,Megabagel+Rare Onion
+58,4,meat+meat,Health+30,Dragon Foot+Great Mutton
+58,4,meat+meat,Health+30,Dragon Foot+White Liver
+58,4,meat+meat,Health+30,Dragon Foot+Wild Wonton
+58,4,meat+meat,Health+30,Great Mutton+White Liver
+58,4,meat+meat,Health+30,Great Mutton+Wild Wonton
+58,4,meat+milk,Health+40,White Liver+Wild Wonton
+58,4,meat+oil,Attack+4,Powerlard+Dragon Foot
+58,4,meat+oil,Attack+4,Powerlard+Great Mutton
+58,4,meat+oil,Attack+4,Powerlard+White Liver
+58,4,meat+oil,Attack+4,Powerlard+Wild Wonton
+58,4,meat+oil,Attack+4,Seafood Jam+Dragon Foot
+58,4,meat+oil,Attack+4,Seafood Jam+Great Mutton
+58,4,meat+oil,Attack+4,Seafood Jam+White Liver
+58,4,meat+oil,Attack+4,Seafood Jam+Wild Wonton
+58,4,meat+Veggies,Attack+4,Cannon Lettuce+Dragon Foot
+58,4,meat+Veggies,Attack+4,Cannon Lettuce+Great Mutton
+58,4,meat+Veggies,Attack+4,Cannon Lettuce+White Liver
+58,4,meat+Veggies,Attack+4,Cannon Lettuce+Wild Wonton
+58,4,meat+Veggies,Attack+4,Pinespice+Dragon Foot
+58,4,meat+Veggies,Attack+4,Pinespice+Great Mutton
+58,4,meat+Veggies,Attack+4,Pinespice+White Liver
+58,4,meat+Veggies,Attack+4,Pinespice+Wild Wonton
+58,4,meat+Veggies,Attack+4,Rare Onion+Dragon Foot
+58,4,meat+Veggies,Attack+4,Rare Onion+Great Mutton
+58,4,meat+Veggies,Attack+4,Rare Onion+White Liver
+58,4,meat+Veggies,Attack+4,Rare Onion+Wild Wonton
+58,4,oil+oil,Attack+4,Powerlard+Seafood Jam
+58,4,veggies+veggies,Health+10&Stamina+25,Cannon Lettuce+Pinespice
+58,4,veggies+veggies,Health+10&Stamina+25,Cannon Lettuce+Rare Onion
+58,4,veggies+veggies,Health+10&Stamina+25,Pinespice+Rare Onion
