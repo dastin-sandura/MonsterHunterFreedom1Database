@@ -221,7 +221,12 @@ public class DatabaseServlet extends HttpServlet {
 
             print("Combinations loaded from file:");
             printAsIs("<ol>");
+            if (finalLevelFiltering == null) {
+
             recipeRepository.getRecipes().forEach((s, s2) -> printAsIs("<li>" + s + " = " + s2 + "</li>"));
+            } else {
+                recipeRepository.getRecipeByCookCountMap().get(Integer.parseInt(finalLevelFiltering)).forEach(s -> printAsIs("<li>" + s + "</li>"));
+            }
             printAsIs("</ol>");
             printAsIs("</body>");
             printAsIs("</html>");
