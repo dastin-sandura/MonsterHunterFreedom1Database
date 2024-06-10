@@ -71,13 +71,6 @@ public class RecipeRepository {
 //        recipeMap = new HashMap<>();
         try {
             Path path = Paths.get(pathString);
-//            ClassLoader.getSystemResourceAsStream("kitchen_recipe.db");
-//            File fileFromResource = getFileFromResource("kitchen_recipe.db");
-//            printFile(fileFromResource);
-
-            Path currentPath = Paths.get(".");
-//            logger.log(Level.INFO,"absolute" + currentPath.toAbsolutePath().toString());
-//            logger.log(Level.INFO,"real path" + currentPath.toRealPath().toString());
             List<String> strings = Files.readAllLines(path);
             for (int i = 0; i < strings.size(); i++) {
                 if (i == 0) {
@@ -92,12 +85,14 @@ public class RecipeRepository {
                 }
 
             }
-        } catch (IOException ioe) {
+        } catch (Exception e) {
 //            logger.log(Level.INFO, ioe, () -> ioe.getMessage());
 //            logger.log(Level.INFO,"Current path is " + Paths.get(".").toAbsolutePath());
             Path absolutePath = Paths.get("kitchen_recipe.db").toAbsolutePath();
 //            logger.log(Level.INFO,"Is this path a directory? " + absolutePath+"path is " + new File(String.valueOf(absolutePath)).isDirectory() );
 //            logger.log(Level.INFO,"Current path is " + Paths.get(".").getR());
+            logger.log(Level.SEVERE, e.toString());
+
         }
         logger.log(Level.INFO,"""
                 Finished loading data into RecipeRepository \
