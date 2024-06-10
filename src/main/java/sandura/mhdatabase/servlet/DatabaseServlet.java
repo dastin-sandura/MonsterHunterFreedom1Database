@@ -105,6 +105,8 @@ public class DatabaseServlet extends HttpServlet {
             possibleLevels.add("1");
             possibleLevels.add("2");
             possibleLevels.add("3");
+            possibleLevels.add("4");
+            possibleLevels.add("5");
             printAsIs("<div>");
             printAsIs("Clear filtering");
             printAsIs("<input type=\"checkbox\" name=\"level-filter\" value=\"null\"/>");
@@ -125,7 +127,7 @@ public class DatabaseServlet extends HttpServlet {
             logger.log(Level.INFO,"finalLevelFiltering variable value = " + finalLevelFiltering);
             logger.log(Level.INFO, "Value of ingredient map is " + asMap);
             asMap.forEach((level, ingredientList) -> {
-                logger.log(Level.INFO,"Inside foreach on the ingredient list");
+//                logger.log(Level.INFO,"Inside foreach on the ingredient list");
                 if (finalLevelFiltering == null) {
                     ingredientList.forEach(ingredient -> {
                         printAsIs("<div>");
