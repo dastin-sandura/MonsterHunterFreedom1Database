@@ -28,9 +28,10 @@ public class FishIngredientRepository {
         try {
             Path dbFilePath = Paths.get(filePath);
             dbFileLines = Files.readAllLines(dbFilePath).stream().skip(1).toList();
-            dbFileLines.forEach(s -> {
-                Integer key = Integer.parseInt(s.split(",")[0]);
-                String value = s.split(",")[1];
+            dbFileLines.forEach(fishRow -> {
+                logger.fine("Processing Fish row " + fishRow);
+                Integer key = Integer.parseInt(fishRow.split(",")[0]);
+                String value = fishRow.split(",")[1];
                 List<String> strings = fishMap.get(key);
                 if (strings == null) {
                     ArrayList<String> list = new ArrayList<>();

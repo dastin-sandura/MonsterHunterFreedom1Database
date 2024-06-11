@@ -31,9 +31,10 @@ public class DrinkIngredientRepository {
         try {
             Path path = Paths.get(directory);
             databaseFileContents = Files.readAllLines(path).stream().skip(1).toList();
-            databaseFileContents.forEach(s -> {
-                String key = s.split(",")[0];
-                String value = s.split(",")[1];
+            databaseFileContents.forEach(drinkRow -> {
+                logger.fine("Processing Drink row " + drinkRow);
+                String key = drinkRow.split(",")[0];
+                String value = drinkRow.split(",")[1];
                 List<String> strings = asMap.get(key);
                 if (strings == null) {
                     ArrayList<String> valuesList = new ArrayList<>();
@@ -45,7 +46,7 @@ public class DrinkIngredientRepository {
             });
             logger.log(Level.INFO, "Loaded " + databaseFileContents.size() + " drink ingredients");
         } catch (Exception e) {
-            logger.log(Level.INFO, "Loading DrinkIngredientRepository did not work." + e);
+            logger.log(Level.SEVERE, "Loading DrinkIngredientRepository did not work." + e);
         }
     }
 
