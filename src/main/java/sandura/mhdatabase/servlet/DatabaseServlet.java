@@ -36,11 +36,11 @@ public class DatabaseServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            logger.log(Level.INFO, this.getClass().getName());
+            logger.info(this.getClass().getName());
             req.getQueryString();
             String levelFiltering = req.getParameter("level-filter");
 
-            logger.log(FINE, "level filter value is: " + levelFiltering);
+            logger.fine("level filter value is: " + levelFiltering);
             String[] ingredients = req.getParameterValues("ingredient");
             writer = resp.getWriter();
 
@@ -59,7 +59,7 @@ public class DatabaseServlet extends HttpServlet {
             FelyneRecipesService felyneRecipesService = new FelyneRecipesService();
 
             if (recipeRepository.getRecipes().keySet().isEmpty()) {
-                logger.log(Level.INFO, "Loading data because recipe repo is empty");
+                logger.info("Loading data because recipe repo is empty");
                 recipeRepository.loadDataFromBaseDir(kitchenRecipeDbFilePath);
             }
 
@@ -105,7 +105,7 @@ public class DatabaseServlet extends HttpServlet {
             if (drinkIngridientsMap.isEmpty()) {
                 drinkIngredientRepository.loadDataFromDirectory(webAppWebInfDirectory + "drink_ingredient.db");
             }
-            logger.log(FINE, "Value of ingredient map is " + drinkIngridientsMap);
+            logger.fine("Value of ingredient map is " + drinkIngridientsMap);
             drinkIngridientsMap.forEach((level, ingredientList) -> {
                 logger.log(FINE,"Inside foreach on the ingredient list");
                 if (levelFiltering == null) {
@@ -124,7 +124,7 @@ public class DatabaseServlet extends HttpServlet {
                     });
                 }
             });
-            logger.log(FINE, "Finished printing ingredients");
+            logger.fine("Finished printing ingredients");
             FishIngredientRepository fishIngredientRepository = new FishIngredientRepository();
             fishIngredientRepository.loadDataFromFile(webAppWebInfDirectory + "fish_ingredient.db");
 
@@ -153,7 +153,7 @@ public class DatabaseServlet extends HttpServlet {
             vegetableIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "vegetable_ingredient.db");
             vegetableIngredientRepository.getVegetableMap().forEach((level, strings) -> {
                 if (levelFiltering == null) {
-                    logger.log(FINE, "Vegetables list for level " + level + " has values " + strings);
+                    logger.fine("Vegetables list for level " + level + " has values " + strings);
                     strings.forEach(vegetable -> {
                         printAsIs("<div>");
                         printAsIs(vegetable + " (level " + level + ")");
@@ -161,7 +161,7 @@ public class DatabaseServlet extends HttpServlet {
                         printAsIs("</div>");
                     });
                 } else if (levelFiltering.equals(level)) {
-                    logger.log(FINE, "Vegetables list for level " + level + " has values " + strings);
+                    logger.fine("Vegetables list for level " + level + " has values " + strings);
                     strings.forEach(vegetable -> {
                         printAsIs("<div>");
                         printAsIs(vegetable + " (level " + level + ")");
@@ -177,7 +177,7 @@ public class DatabaseServlet extends HttpServlet {
             milkIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "milk_ingredient.db");
             milkIngredientRepository.getMilkMap().forEach((level, strings) -> {
                 if (levelFiltering == null) {
-                    logger.log(FINE, "Milk list for level " + level + " has values " + strings);
+                    logger.fine("Milk list for level " + level + " has values " + strings);
                     strings.forEach(milk -> {
                         printAsIs("<div>");
                         printAsIs(milk + " (level " + level + ")");
@@ -185,7 +185,7 @@ public class DatabaseServlet extends HttpServlet {
                         printAsIs("</div>");
                     });
                 } else if (levelFiltering.equals(level)) {
-                    logger.log(FINE, "Milk list for level " + level + " has values " + strings);
+                    logger.fine("Milk list for level " + level + " has values " + strings);
                     strings.forEach(milk -> {
                         printAsIs("<div>");
                         printAsIs(milk + " (level " + level + ")");
@@ -201,7 +201,7 @@ public class DatabaseServlet extends HttpServlet {
             meatIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "meat_ingredient.db");
             meatIngredientRepository.getMeatMap().forEach((level, strings) -> {
                 if (levelFiltering == null) {
-                    logger.log(FINE, "Meat list for level " + level + " has values " + strings);
+                    logger.fine("Meat list for level " + level + " has values " + strings);
                     strings.forEach(meat -> {
                         printAsIs("<div>");
                         printAsIs(meat + " (level " + level + ")");
@@ -209,7 +209,7 @@ public class DatabaseServlet extends HttpServlet {
                         printAsIs("</div>");
                     });
                 } else if (levelFiltering.equals(level)) {
-                    logger.log(FINE, "Meat list for level " + level + " has values " + strings);
+                    logger.fine("Meat list for level " + level + " has values " + strings);
                     strings.forEach(meat -> {
                         printAsIs("<div>");
                         printAsIs(meat + " (level " + level + ")");
@@ -225,7 +225,7 @@ public class DatabaseServlet extends HttpServlet {
             oilIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "oil_ingredient.db");
             oilIngredientRepository.getOilMap().forEach((level, strings) -> {
                 if (levelFiltering == null) {
-                    logger.log(FINE, "Oil list for level " + level + " has values " + strings);
+                    logger.fine("Oil list for level " + level + " has values " + strings);
                     strings.forEach(oil -> {
                         printAsIs("<div>");
                         printAsIs(oil + " (level " + level + ")");
@@ -233,7 +233,7 @@ public class DatabaseServlet extends HttpServlet {
                         printAsIs("</div>");
                     });
                 } else if (levelFiltering.equals(level)) {
-                    logger.log(FINE, "Oil list for level " + level + " has values " + strings);
+                    logger.fine("Oil list for level " + level + " has values " + strings);
                     strings.forEach(oil -> {
                         printAsIs("<div>");
                         printAsIs(oil + " (level " + level + ")");
@@ -249,7 +249,7 @@ public class DatabaseServlet extends HttpServlet {
             grainIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "grain_ingredient.db");
             grainIngredientRepository.getGrainMap().forEach((level, strings) -> {
                 if (levelFiltering == null) {
-                    logger.log(FINE, "Grain list for level " + level + " has values " + strings);
+                    logger.fine("Grain list for level " + level + " has values " + strings);
                     strings.forEach(grain -> {
                         printAsIs("<div>");
                         printAsIs(grain + " (level " + level + ")");
@@ -257,7 +257,7 @@ public class DatabaseServlet extends HttpServlet {
                         printAsIs("</div>");
                     });
                 } else if (levelFiltering.equals(level)) {
-                    logger.log(FINE, "Grain list for level " + level + " has values " + strings);
+                    logger.fine("Grain list for level " + level + " has values " + strings);
                     strings.forEach(grain -> {
                         printAsIs("<div>");
                         printAsIs(grain + " (level " + level + ")");
@@ -278,11 +278,11 @@ public class DatabaseServlet extends HttpServlet {
             printAsIs("<ol>");
             if (levelFiltering == null) {
                 print("All combinations loaded from file:");
-                logger.log(Level.INFO, "Printing all recipies without filtering");
+                logger.info("Printing all recipies without filtering");
                 recipeRepository.getRecipes().forEach((s, s2) -> printAsIs("<li>" + s + " = " + s2 + "</li>"));
             } else {
                 print("Combinations loaded from file only when you have " + levelFiltering + " Cat cooks.");
-                logger.log(Level.INFO, "Printing all recipes for cook count " + levelFiltering);
+                logger.info("Printing all recipes for cook count " + levelFiltering);
                 recipeRepository.getRecipeByCookCountMap().get(Integer.parseInt(levelFiltering)).forEach(s -> printAsIs("<li>" + s + "</li>"));
             }
             printAsIs("</ol>");
