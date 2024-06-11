@@ -4,15 +4,23 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import sandura.mhdatabase.kitchen.FelyneRecipesService;
+import sandura.mhdatabase.kitchen.IngredientPair;
 import sandura.mhdatabase.kitchen.RecipeRepository;
 import sandura.mhdatabase.kitchen.ingredient.DrinkIngredientRepository;
 import sandura.mhdatabase.kitchen.ingredient.FishIngredientRepository;
+import sandura.mhdatabase.kitchen.ingredient.GrainIngredientRepository;
+import sandura.mhdatabase.kitchen.ingredient.MeatIngredientRepository;
+import sandura.mhdatabase.kitchen.ingredient.MilkIngredientRepository;
+import sandura.mhdatabase.kitchen.ingredient.OilIngredientRepository;
+import sandura.mhdatabase.kitchen.ingredient.VegetableIngredientRepository;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -81,21 +89,41 @@ public class DatabaseServlet extends HttpServlet {
             if (first != null && second != null) {
                 logger.log(Level.INFO, "Checking possibilites for " + first + " and " + second);
                 List<String> requestParameters = new ArrayList<>();
-                requestParameters.add(first);
-                requestParameters.add(second);
+                requestParameters.addAll(Arrays.stream(ingredients).toList());
+//                requestParameters.add(second);
 //            print("Possible ingredient from " + requestParameters);
-                print("Possible ingredient from " + felyneRecipesService.getPossibleIngredientPairs(requestParameters).toString());
+                Set<IngredientPair> pairs = felyneRecipesService.getPossibleIngredientPairs(requestParameters);
+                print("Possible ingredient from " + pairs.toString());
 
+                logger.log(Level.INFO, "Generated pairs " + pairs);
                 try {
-                    printAsIs("<h2>Effect from ingredients: " + recipeRepository.generatePossibleRecipes(first, second, 0) + "</h2>");
+//                    printAsIs("<h2>Effect from ingredients: " + recipeRepository.generatePossibleRecipes(first, second, 0) + "</h2>");
+//                    pairs.forEach(ingredientPair -> printAsIs("<h2>Effect from ingredients: " + ingredientPair.first + " & " + ingredientPair.second + "=" + recipeRepository.generatePossibleRecipes(ingredientPair.first, ingredientPair.second, 0) + "</h2>"));
                 } catch (Exception e) {
                     print(e.toString());
                 }
 
             }
 
-            Map<Integer, List<String>> asMap = drinkIngredientRepository.getAsMap();
-            if (asMap.isEmpty()) {
+            try {
+                List<String> requestParameters = new ArrayList<>();
+                requestParameters.addAll(Arrays.stream(ingredients).toList());
+                Set<IngredientPair> pairs = felyneRecipesService.getPossibleIngredientPairs(requestParameters);
+
+                printAsIs("<h2>Effect from ingredients: " + recipeRepository.generatePossibleRecipes(first, second, 0) + "</h2>");
+                pairs.forEach(ingredientPair -> {
+                    String optionalRecipe = recipeRepository.generatePossibleRecipes(ingredientPair.first, ingredientPair.second, 0);
+                    if (optionalRecipe != null) {
+                        printAsIs("<h2>Effect from ingredients: " + ingredientPair.first + " & " + ingredientPair.second + "=" + optionalRecipe + "</h2>");
+                    }
+                });
+
+            } catch (Exception e) {
+                print(e.toString());
+            }
+
+            Map<Integer, List<String>> drinkIngridientsMap = drinkIngredientRepository.getAsMap();
+            if (drinkIngridientsMap.isEmpty()) {
                 drinkIngredientRepository.loadDataFromDirectory(webAppWebInfDirectory + "drink_ingredient.db");
             }
             printAsIs("<form action=\"\" method\"get\">");
