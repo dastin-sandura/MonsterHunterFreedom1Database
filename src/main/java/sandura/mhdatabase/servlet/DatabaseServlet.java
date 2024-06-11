@@ -236,8 +236,7 @@ public class DatabaseServlet extends HttpServlet {
 
             writer = null;
         } catch (Exception e) {
-            logger.log(Level.INFO, "Someto");
-            logger.log(Level.SEVERE, "Something broke " + e.getStackTrace().toString());
+            logger.log(Level.SEVERE, "Something broke in the servlet " + e);
         }
     }
 
