@@ -297,51 +297,6 @@ public class DatabaseServlet extends HttpServlet {
                     """);
             printAsIs("</form>");
             felyneRecipesService.getNumberOfCooksFromIngredient("Chili Cheese");
-//        printAsIs("""
-//                       <p>Manually created form</p>
-//                       <form action="" method"get">
-//                                   <div>
-//                                       Cubesteak
-//                                       <input type="checkbox" name="ingredient" value="Cubesteak" id="second"/>
-//                                   </div>
-//                                  <div>
-//                                       Dry Margarine
-//                                       <input type="checkbox" name="ingredient" value="Dry Margarine" id="second"/>
-//                                   </div>
-//
-//                                   <div>
-//                                       Tuna head
-//                                       <input type="checkbox" name="ingredient" value="Tuna head" id="second"/>
-//                                   </div>
-//                                   <div>
-//                                       Hardtack
-//                                       <input type="checkbox" name="ingredient" value="Hardtack" id="second"/>
-//                                   </div>
-//
-//                                   <div>
-//                                       Snake salmon
-//                                       <input type="checkbox" name="ingredient" value="Snake salmon" id="second"/>
-//                                   </div>
-//                                   <div>
-//                                       Sweetbug
-//                                       <input type="checkbox" name="ingredient" value="Sweetbug" id="second"/>
-//                                   </div>
-//
-//                                   <div>
-//                                       Spicy Sausage
-//                                       <input type="checkbox" name="ingredient" value="Spicy Sausage" id="second"/>
-//                                   </div>
-//
-//                                   <div>
-//                                       Aged Cheese
-//                                       <input type="checkbox" name="ingredient" value="Aged Cheese" id="second"/>
-//                                   </div>
-//                                   <div>
-//                                       <input type="submit" value="Generate" />
-//                                   </div>
-//                               </form>
-//                """);
-
 
             if (finalLevelFiltering == null) {
                 print("All combinations loaded from file:");
