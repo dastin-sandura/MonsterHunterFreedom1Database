@@ -1,6 +1,5 @@
 package sandura.mhdatabase.kitchen.ingredient;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,9 +15,9 @@ import static java.util.logging.Level.*;
 public class GrainIngredientRepository {
 
 
-    private Logger logger = Logger.getLogger(this.getClass().getName());
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-    private Map<String, List<String>> grainMap;
+    private final Map<String, List<String>> grainMap;
 
     public GrainIngredientRepository() {
         grainMap = new HashMap<>();

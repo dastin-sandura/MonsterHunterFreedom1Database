@@ -13,7 +13,7 @@ public class RecipeRepositoryTest {
 
     static void test() {
         RecipeRepository recipeRepository = new RecipeRepository();
-        String result = recipeRepository.generatePossibleRecipes("Cubesteak", "Hardtack", 2);
+        String result = recipeRepository.generatePossibleRecipes("Cubesteak", "Hardtack");
         Map<String, String> recipes = recipeRepository.getRecipes();
         System.out.println(recipes.get("Spicy Sausage+Tuna Head"));
         System.out.println(recipes);

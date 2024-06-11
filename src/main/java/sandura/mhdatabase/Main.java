@@ -16,7 +16,7 @@ public class Main {
 
         RecipeRepository recipeRepository = new RecipeRepository();
 //        log.logInfo(recipeRepository.getRecipes().toString());
-        log.logInfo(recipeRepository.generatePossibleRecipes("Cubesteak", "Hardtack", 2));
+        log.logInfo(recipeRepository.generatePossibleRecipes("Cubesteak", "Hardtack"));
         log.logDebug("Contents of Items Repository");
         log.logDebug(itemRepository.getItems());
 
@@ -38,15 +38,9 @@ public class Main {
 //        availableIngredients.add("Cudgel Onion");
 //        availableIngredients.add("Snake salmon");
         log.logInfo("Possible ingredient from " + availableIngredients);
-        log.logInfo(recipiesService.getPossibleIngredientPairs(availableIngredients).toString());;
+        log.logInfo(recipiesService.getPossibleIngredientPairs(availableIngredients).toString());
         recipiesService.getNumberOfCooksFromIngredient("Chili Cheese");
 
 //        httpServerTests();
-    }
-
-
-
-    void runTests() {
-
     }
 }

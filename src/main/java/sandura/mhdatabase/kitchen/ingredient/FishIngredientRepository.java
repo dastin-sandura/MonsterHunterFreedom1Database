@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 public class FishIngredientRepository {
 
@@ -18,7 +17,7 @@ public class FishIngredientRepository {
 
     private List<String> dbFileLines;
 
-    private Map<Integer, List<String>> fishMap;
+    private final Map<Integer, List<String>> fishMap;
 
     public FishIngredientRepository() {
         fishMap = new HashMap<>();

@@ -14,10 +14,9 @@ import static java.util.logging.Level.INFO;
 
 public class VegetableIngredientRepository {
 
-
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-    private Map<String, List<String>> vegetableMap;
+    private final Map<String, List<String>> vegetableMap;
 
     public VegetableIngredientRepository() {
        vegetableMap = new HashMap<>();

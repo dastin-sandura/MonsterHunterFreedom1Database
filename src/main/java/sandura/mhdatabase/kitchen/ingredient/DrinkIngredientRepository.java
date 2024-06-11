@@ -1,7 +1,6 @@
 package sandura.mhdatabase.kitchen.ingredient;
 
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,15 +15,14 @@ public class DrinkIngredientRepository {
 
     public static final String DATABASE_FILE_PATH = "./src/main/resources/felyne-kitchen/ingredient/drink_ingredient.db";
 
-    private Logger logger = Logger.getLogger(DrinkIngredientRepository.class.getName());
+    private final Logger logger = Logger.getLogger(DrinkIngredientRepository.class.getName());
 
     private List<String> databaseFileContents;
 
-    private Map<Integer, List<String>> asMap;
+    private final Map<String, List<String>> drinkMap;
 
     public DrinkIngredientRepository() {
-        asMap = new HashMap<>();
-//        loadDataFromDirectory(DATABASE_FILE_PATH);
+        drinkMap = new HashMap<>();
     }
 
     public void loadDataFromDirectory(String directory) {
@@ -35,11 +33,11 @@ public class DrinkIngredientRepository {
                 logger.fine("Processing Drink row " + drinkRow);
                 String key = drinkRow.split(",")[0];
                 String value = drinkRow.split(",")[1];
-                List<String> strings = asMap.get(key);
+                List<String> strings = drinkMap.get(key);
                 if (strings == null) {
                     ArrayList<String> valuesList = new ArrayList<>();
                     valuesList.add(value);
-                    asMap.put(Integer.parseInt(key), valuesList);
+                    drinkMap.put(key, valuesList);
                 } else {
                     strings.add(value);
                 }
@@ -54,7 +52,7 @@ public class DrinkIngredientRepository {
         return databaseFileContents;
     }
 
-    public Map<Integer, List<String>> getAsMap() {
-        return asMap;
+    public Map<String, List<String>> getDrinkMap() {
+        return drinkMap;
     }
 }

@@ -15,9 +15,9 @@ import static java.util.logging.Level.*;
 public class OilIngredientRepository {
 
 
-    private Logger logger = Logger.getLogger(this.getClass().getName());
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-    private Map<String, List<String>> oilMap;
+    private final Map<String, List<String>> oilMap;
 
     public OilIngredientRepository() {
         oilMap = new HashMap<>();

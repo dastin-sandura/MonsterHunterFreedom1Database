@@ -14,7 +14,6 @@ import sandura.mhdatabase.kitchen.ingredient.MilkIngredientRepository;
 import sandura.mhdatabase.kitchen.ingredient.OilIngredientRepository;
 import sandura.mhdatabase.kitchen.ingredient.VegetableIngredientRepository;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,22 +28,20 @@ public class DatabaseServlet extends HttpServlet {
     private static final RecipeRepository recipeRepository = new RecipeRepository();
     private final DrinkIngredientRepository drinkIngredientRepository = new DrinkIngredientRepository();
 
-    PrintWriter writer;
-    private Logger logger = Logger.getLogger(DatabaseServlet.class.getName());
+    private PrintWriter writer;
+    private final Logger logger = Logger.getLogger(DatabaseServlet.class.getName());
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         try {
 //        Logger.getLogger (DatabaseServlet.class.getName()).log(Level.WARNING, e.getMessage(), e);
             logger.log(Level.INFO, "hello world");
             req.getQueryString();
-            String first = req.getParameter("first");
-            String second = req.getParameter("second");
             String levelFiltering = req.getParameter("level-filter");
             if ("null".equals(levelFiltering)) {
                 logger.log(Level.INFO, "Chaning level-filter value to null");
                 levelFiltering = null;
-            } else if (levelFiltering == null){
+            } else if (levelFiltering == null) {
                 logger.log(Level.INFO, "level-filter param remains as special vlue null");
             } else {
                 logger.log(Level.INFO, "level-filter param has not String null and not special null value so it has value '" + levelFiltering + "' so what the fuck is the value?");
@@ -53,13 +50,7 @@ public class DatabaseServlet extends HttpServlet {
 
             logger.log(Level.INFO, "level filter value is: " + levelFiltering);
             String[] ingredients = req.getParameterValues("ingredient");
-            if (ingredients != null && ingredients.length == 2) {
-                first = ingredients[0];
-                second = ingredients[1];
 
-            }
-
-            //        super.doGet(req, resp);
             writer = resp.getWriter();
 
             printAsIs("<!doctype html>");
@@ -70,15 +61,9 @@ public class DatabaseServlet extends HttpServlet {
             printAsIs("</head>");
             printAsIs("<body>");
 
-//        print("Value of environment variable 'catalina.base' is :" + System.getProperty("catalina.base"));
-            String webAppWebInfDirectory = getServletContext().getRealPath("/").toString() + "WEB-INF/";
+            String webAppWebInfDirectory = getServletContext().getRealPath("/") + "WEB-INF/";
 
             String kitchenRecipeDbFilePath = webAppWebInfDirectory + "kitchen_recipe.db";
-//        print("getServletContext().getRealPath(\"/\") : " + kitchenRecipeDbFilePath);
-//        print("Attributes:");
-//        getServletContext().getAttributeNames().asIterator().forEachRemaining(s -> print(s + " = " + getServletContext().getAttribute(s)));
-//        print("First parameter %s".formatted(first));
-//        print("Second parameter %s".formatted(second));
 
             FelyneRecipesService felyneRecipesService = new FelyneRecipesService();
 
@@ -86,33 +71,16 @@ public class DatabaseServlet extends HttpServlet {
                 logger.log(Level.INFO, "Loading data because recipe repo is empty");
                 recipeRepository.loadDataFromBaseDir(kitchenRecipeDbFilePath);
             }
-            if (first != null && second != null) {
-                logger.log(Level.INFO, "Checking possibilites for " + first + " and " + second);
-                List<String> requestParameters = new ArrayList<>();
-                requestParameters.addAll(Arrays.stream(ingredients).toList());
-//                requestParameters.add(second);
-//            print("Possible ingredient from " + requestParameters);
-                Set<IngredientPair> pairs = felyneRecipesService.getPossibleIngredientPairs(requestParameters);
-                print("Possible ingredient from " + pairs.toString());
-
-                logger.log(Level.INFO, "Generated pairs " + pairs);
-                try {
-//                    printAsIs("<h2>Effect from ingredients: " + recipeRepository.generatePossibleRecipes(first, second, 0) + "</h2>");
-//                    pairs.forEach(ingredientPair -> printAsIs("<h2>Effect from ingredients: " + ingredientPair.first + " & " + ingredientPair.second + "=" + recipeRepository.generatePossibleRecipes(ingredientPair.first, ingredientPair.second, 0) + "</h2>"));
-                } catch (Exception e) {
-                    print(e.toString());
-                }
-
-            }
 
             try {
                 List<String> requestParameters = new ArrayList<>();
-                requestParameters.addAll(Arrays.stream(ingredients).toList());
+                if (ingredients != null) {
+                    requestParameters.addAll(Arrays.stream(ingredients).toList());
+                }
                 Set<IngredientPair> pairs = felyneRecipesService.getPossibleIngredientPairs(requestParameters);
 
-                printAsIs("<h2>Effect from ingredients: " + recipeRepository.generatePossibleRecipes(first, second, 0) + "</h2>");
                 pairs.forEach(ingredientPair -> {
-                    String optionalRecipe = recipeRepository.generatePossibleRecipes(ingredientPair.first, ingredientPair.second, 0);
+                    String optionalRecipe = recipeRepository.generatePossibleRecipes(ingredientPair.first, ingredientPair.second);
                     if (optionalRecipe != null) {
                         printAsIs("<h2>Effect from ingredients: " + ingredientPair.first + " & " + ingredientPair.second + "=" + optionalRecipe + "</h2>");
                     }
@@ -122,10 +90,7 @@ public class DatabaseServlet extends HttpServlet {
                 print(e.toString());
             }
 
-            Map<Integer, List<String>> drinkIngridientsMap = drinkIngredientRepository.getAsMap();
-            if (drinkIngridientsMap.isEmpty()) {
-                drinkIngredientRepository.loadDataFromDirectory(webAppWebInfDirectory + "drink_ingredient.db");
-            }
+
             printAsIs("<form action=\"\" method\"get\">");
             print("Level filtering");
             ArrayList<String> possibleLevels = new ArrayList<>();
@@ -141,17 +106,21 @@ public class DatabaseServlet extends HttpServlet {
             possibleLevels.forEach(levelValue -> {
                 printAsIs("<div>");
                 printAsIs(levelValue);
-                if(finalLevelFiltering!=null && levelValue.equals(finalLevelFiltering) ){
-                printAsIs("<input type=\"checkbox\" name=\"level-filter\" value=\"" + levelValue + "\" checked/>");
+                if (levelValue.equals(finalLevelFiltering)) {
+                    printAsIs("<input type=\"checkbox\" name=\"level-filter\" value=\"" + levelValue + "\" checked/>");
 
-                } else{
+                } else {
 
-                printAsIs("<input type=\"checkbox\" name=\"level-filter\" value=\"" + levelValue + "\"/>");
+                    printAsIs("<input type=\"checkbox\" name=\"level-filter\" value=\"" + levelValue + "\"/>");
                 }
                 printAsIs("</div>");
             });
             print("Drink ingredients - auto generated");
-            logger.log(Level.INFO,"finalLevelFiltering variable value = " + finalLevelFiltering);
+            logger.log(Level.INFO, "finalLevelFiltering variable value = " + finalLevelFiltering);
+            Map<String, List<String>> drinkIngridientsMap = drinkIngredientRepository.getDrinkMap();
+            if (drinkIngridientsMap.isEmpty()) {
+                drinkIngredientRepository.loadDataFromDirectory(webAppWebInfDirectory + "drink_ingredient.db");
+            }
             logger.log(Level.INFO, "Value of ingredient map is " + drinkIngridientsMap);
             drinkIngridientsMap.forEach((level, ingredientList) -> {
 //                logger.log(Level.INFO,"Inside foreach on the ingredient list");
@@ -162,7 +131,7 @@ public class DatabaseServlet extends HttpServlet {
                         printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + ingredient.toLowerCase() + "\"/>");
                         printAsIs("</div>");
                     });
-                } else if (Integer.valueOf(finalLevelFiltering).equals(level)) {
+                } else if (finalLevelFiltering.equals(level)) {
                     ingredientList.forEach(ingredient -> {
                         printAsIs("<div>");
                         printAsIs(ingredient + "(level " + level + ")");
@@ -200,15 +169,15 @@ public class DatabaseServlet extends HttpServlet {
             VegetableIngredientRepository vegetableIngredientRepository = new VegetableIngredientRepository();
             vegetableIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "vegetable_ingredient.db");
             vegetableIngredientRepository.getVegetableMap().forEach((level, strings) -> {
-                if(finalLevelFiltering == null ){
+                if (finalLevelFiltering == null) {
 
-                logger.log(Level.INFO, "Vegetables list for level " + level + " has values " + strings);
-                strings.forEach(vegetable -> {
-                    printAsIs("<div>");
-                    printAsIs(vegetable + " (level " + level + ")");
-                    printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + vegetable.toLowerCase() + "\"/>");
-                    printAsIs("</div>");
-                });
+                    logger.log(Level.INFO, "Vegetables list for level " + level + " has values " + strings);
+                    strings.forEach(vegetable -> {
+                        printAsIs("<div>");
+                        printAsIs(vegetable + " (level " + level + ")");
+                        printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + vegetable.toLowerCase() + "\"/>");
+                        printAsIs("</div>");
+                    });
                 } else if (finalLevelFiltering.equals(level)) {
                     logger.log(Level.INFO, "Vegetables list for level " + level + " has values " + strings);
                     strings.forEach(vegetable -> {
@@ -225,7 +194,7 @@ public class DatabaseServlet extends HttpServlet {
             MilkIngredientRepository milkIngredientRepository = new MilkIngredientRepository();
             milkIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "milk_ingredient.db");
             milkIngredientRepository.getMilkMap().forEach((level, strings) -> {
-                if(finalLevelFiltering == null ){
+                if (finalLevelFiltering == null) {
 
                     logger.log(Level.INFO, "Milk list for level " + level + " has values " + strings);
                     strings.forEach(milk -> {
@@ -250,7 +219,7 @@ public class DatabaseServlet extends HttpServlet {
             MeatIngredientRepository meatIngredientRepository = new MeatIngredientRepository();
             meatIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "meat_ingredient.db");
             meatIngredientRepository.getMeatMap().forEach((level, strings) -> {
-                if(finalLevelFiltering == null ){
+                if (finalLevelFiltering == null) {
 
                     logger.log(Level.INFO, "Meat list for level " + level + " has values " + strings);
                     strings.forEach(meat -> {
@@ -275,7 +244,7 @@ public class DatabaseServlet extends HttpServlet {
             OilIngredientRepository oilIngredientRepository = new OilIngredientRepository();
             oilIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "oil_ingredient.db");
             oilIngredientRepository.getOilMap().forEach((level, strings) -> {
-                if(finalLevelFiltering == null ){
+                if (finalLevelFiltering == null) {
 
                     logger.log(Level.INFO, "Oil list for level " + level + " has values " + strings);
                     strings.forEach(oil -> {
@@ -300,7 +269,7 @@ public class DatabaseServlet extends HttpServlet {
             GrainIngredientRepository grainIngredientRepository = new GrainIngredientRepository();
             grainIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "grain_ingredient.db");
             grainIngredientRepository.getGrainMap().forEach((level, strings) -> {
-                if(finalLevelFiltering == null ){
+                if (finalLevelFiltering == null) {
 
                     logger.log(Level.INFO, "Grain list for level " + level + " has values " + strings);
                     strings.forEach(grain -> {

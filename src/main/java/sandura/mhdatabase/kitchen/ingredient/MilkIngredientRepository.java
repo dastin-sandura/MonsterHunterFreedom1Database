@@ -16,8 +16,8 @@ import static java.util.logging.Level.INFO;
 public class MilkIngredientRepository {
 
 
-    private Logger logger = Logger.getLogger(this.getClass().getName());
-    private Map<String, List<String>> milkMap;
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
+    private final Map<String, List<String>> milkMap;
 
     public MilkIngredientRepository() {
         milkMap = new HashMap<>();
