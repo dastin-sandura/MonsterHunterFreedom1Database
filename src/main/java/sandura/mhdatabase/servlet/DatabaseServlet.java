@@ -27,9 +27,6 @@ import static java.util.logging.Level.FINE;
 
 public class DatabaseServlet extends HttpServlet {
 
-    private static final RecipeRepository recipeRepository = new RecipeRepository();
-    private final DrinkIngredientRepository drinkIngredientRepository = new DrinkIngredientRepository();
-
     private PrintWriter writer;
     private final Logger logger = Logger.getLogger(DatabaseServlet.class.getName());
 
@@ -58,6 +55,8 @@ public class DatabaseServlet extends HttpServlet {
 
             FelyneRecipesService felyneRecipesService = new FelyneRecipesService();
 
+            RecipeRepository recipeRepository = new RecipeRepository();
+
             if (recipeRepository.getRecipes().keySet().isEmpty()) {
                 logger.info("Loading data because recipe repo is empty");
                 recipeRepository.loadDataFromBaseDir(kitchenRecipeDbFilePath);
@@ -83,189 +82,14 @@ public class DatabaseServlet extends HttpServlet {
 
 
             printAsIs("<form action=\"\" method=\"get\">");
-            print("Level filtering");
-            ArrayList<String> possibleLevels = new ArrayList<>();
-            possibleLevels.add("1");
-            possibleLevels.add("2");
-            possibleLevels.add("3");
-            possibleLevels.add("4");
-            possibleLevels.add("5");
-            possibleLevels.forEach(levelValue -> {
-                printAsIs("<div>");
-                printAsIs(levelValue);
-                if (levelValue.equals(levelFiltering)) {
-                    printAsIs("<input type=\"checkbox\" name=\"level-filter\" value=\"" + levelValue + "\" checked/>");
-                } else {
-                    printAsIs("<input type=\"checkbox\" name=\"level-filter\" value=\"" + levelValue + "\"/>");
-                }
-                printAsIs("</div>");
-            });
-            print("Drink ingredients - auto generated");
-            Map<String, List<String>> drinkIngridientsMap = drinkIngredientRepository.getDrinkMap();
-            if (drinkIngridientsMap.isEmpty()) {
-                drinkIngredientRepository.loadDataFromDirectory(webAppWebInfDirectory + "drink_ingredient.db");
-            }
-            logger.fine("Value of ingredient map is " + drinkIngridientsMap);
-            drinkIngridientsMap.forEach((level, ingredientList) -> {
-                logger.log(FINE,"Inside foreach on the ingredient list");
-                if (levelFiltering == null) {
-                    ingredientList.forEach(ingredient -> {
-                        printAsIs("<div>");
-                        printAsIs(ingredient + "(level " + level + ")");
-                        printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + ingredient.toLowerCase() + "\"/>");
-                        printAsIs("</div>");
-                    });
-                } else if (levelFiltering.equals(level)) {
-                    ingredientList.forEach(ingredient -> {
-                        printAsIs("<div>");
-                        printAsIs(ingredient + "(level " + level + ")");
-                        printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + ingredient.toLowerCase() + "\"/>");
-                        printAsIs("</div>");
-                    });
-                }
-            });
-            logger.fine("Finished printing ingredients");
-            FishIngredientRepository fishIngredientRepository = new FishIngredientRepository();
-            fishIngredientRepository.loadDataFromFile(webAppWebInfDirectory + "fish_ingredient.db");
-
-            print("Fish ingredients - generated from file");
-
-            fishIngredientRepository.getFishMap().forEach((level, fishes) -> {
-                if (levelFiltering == null) {
-                    fishes.forEach(fish -> {
-                        printAsIs("<div>");
-                        printAsIs(fish + " (level " + level + ")");
-                        printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + fish.toLowerCase() + "\"/>");
-                        printAsIs("</div>");
-                    });
-                } else if (Integer.valueOf(levelFiltering).equals(level)) {
-                    fishes.forEach(fishe -> {
-                        printAsIs("<div>");
-                        printAsIs(fishe + " (level " + level + ")");
-                        printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + fishe.toLowerCase() + "\"/>");
-                        printAsIs("</div>");
-                    });
-                }
-            });
-            print("Vegetable list ingredients - generated from file");
-
-            VegetableIngredientRepository vegetableIngredientRepository = new VegetableIngredientRepository();
-            vegetableIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "vegetable_ingredient.db");
-            vegetableIngredientRepository.getVegetableMap().forEach((level, strings) -> {
-                if (levelFiltering == null) {
-                    logger.fine("Vegetables list for level " + level + " has values " + strings);
-                    strings.forEach(vegetable -> {
-                        printAsIs("<div>");
-                        printAsIs(vegetable + " (level " + level + ")");
-                        printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + vegetable.toLowerCase() + "\"/>");
-                        printAsIs("</div>");
-                    });
-                } else if (levelFiltering.equals(level)) {
-                    logger.fine("Vegetables list for level " + level + " has values " + strings);
-                    strings.forEach(vegetable -> {
-                        printAsIs("<div>");
-                        printAsIs(vegetable + " (level " + level + ")");
-                        printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + vegetable.toLowerCase() + "\"/>");
-                        printAsIs("</div>");
-                    });
-                }
-            });
-
-            print("Milk list ingredients - generated from file");
-
-            MilkIngredientRepository milkIngredientRepository = new MilkIngredientRepository();
-            milkIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "milk_ingredient.db");
-            milkIngredientRepository.getMilkMap().forEach((level, strings) -> {
-                if (levelFiltering == null) {
-                    logger.fine("Milk list for level " + level + " has values " + strings);
-                    strings.forEach(milk -> {
-                        printAsIs("<div>");
-                        printAsIs(milk + " (level " + level + ")");
-                        printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + milk.toLowerCase() + "\"/>");
-                        printAsIs("</div>");
-                    });
-                } else if (levelFiltering.equals(level)) {
-                    logger.fine("Milk list for level " + level + " has values " + strings);
-                    strings.forEach(milk -> {
-                        printAsIs("<div>");
-                        printAsIs(milk + " (level " + level + ")");
-                        printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + milk.toLowerCase() + "\"/>");
-                        printAsIs("</div>");
-                    });
-                }
-            });
-
-            print("Meat list ingredients - generated from file");
-
-            MeatIngredientRepository meatIngredientRepository = new MeatIngredientRepository();
-            meatIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "meat_ingredient.db");
-            meatIngredientRepository.getMeatMap().forEach((level, strings) -> {
-                if (levelFiltering == null) {
-                    logger.fine("Meat list for level " + level + " has values " + strings);
-                    strings.forEach(meat -> {
-                        printAsIs("<div>");
-                        printAsIs(meat + " (level " + level + ")");
-                        printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + meat.toLowerCase() + "\"/>");
-                        printAsIs("</div>");
-                    });
-                } else if (levelFiltering.equals(level)) {
-                    logger.fine("Meat list for level " + level + " has values " + strings);
-                    strings.forEach(meat -> {
-                        printAsIs("<div>");
-                        printAsIs(meat + " (level " + level + ")");
-                        printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + meat.toLowerCase() + "\"/>");
-                        printAsIs("</div>");
-                    });
-                }
-            });
-
-            print("Oil list ingredients - generated from file");
-
-            OilIngredientRepository oilIngredientRepository = new OilIngredientRepository();
-            oilIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "oil_ingredient.db");
-            oilIngredientRepository.getOilMap().forEach((level, strings) -> {
-                if (levelFiltering == null) {
-                    logger.fine("Oil list for level " + level + " has values " + strings);
-                    strings.forEach(oil -> {
-                        printAsIs("<div>");
-                        printAsIs(oil + " (level " + level + ")");
-                        printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + oil.toLowerCase() + "\"/>");
-                        printAsIs("</div>");
-                    });
-                } else if (levelFiltering.equals(level)) {
-                    logger.fine("Oil list for level " + level + " has values " + strings);
-                    strings.forEach(oil -> {
-                        printAsIs("<div>");
-                        printAsIs(oil + " (level " + level + ")");
-                        printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + oil.toLowerCase() + "\"/>");
-                        printAsIs("</div>");
-                    });
-                }
-            });
-
-            print("Grain list ingredients - generated from file");
-
-            GrainIngredientRepository grainIngredientRepository = new GrainIngredientRepository();
-            grainIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "grain_ingredient.db");
-            grainIngredientRepository.getGrainMap().forEach((level, strings) -> {
-                if (levelFiltering == null) {
-                    logger.fine("Grain list for level " + level + " has values " + strings);
-                    strings.forEach(grain -> {
-                        printAsIs("<div>");
-                        printAsIs(grain + " (level " + level + ")");
-                        printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + grain.toLowerCase() + "\"/>");
-                        printAsIs("</div>");
-                    });
-                } else if (levelFiltering.equals(level)) {
-                    logger.fine("Grain list for level " + level + " has values " + strings);
-                    strings.forEach(grain -> {
-                        printAsIs("<div>");
-                        printAsIs(grain + " (level " + level + ")");
-                        printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + grain.toLowerCase() + "\"/>");
-                        printAsIs("</div>");
-                    });
-                }
-            });
+            printLevelFilteringSection(levelFiltering);
+            printDrinkIngredientSection(webAppWebInfDirectory, levelFiltering);
+            printFishIngredientsSection(webAppWebInfDirectory, levelFiltering);
+            printVegetableIngredientSection(webAppWebInfDirectory, levelFiltering);
+            printMilkIngredientSection(webAppWebInfDirectory, levelFiltering);
+            printMeatIngredientSection(webAppWebInfDirectory, levelFiltering);
+            printOilIngredientSection(webAppWebInfDirectory, levelFiltering);
+            printGrainIngredientSection(webAppWebInfDirectory, levelFiltering);
 
             printAsIs("""
                     <div>
@@ -273,7 +97,6 @@ public class DatabaseServlet extends HttpServlet {
                     </div>
                     """);
             printAsIs("</form>");
-            felyneRecipesService.getNumberOfCooksFromIngredient("Chili Cheese");
 
             printAsIs("<ol>");
             if (levelFiltering == null) {
@@ -289,10 +112,212 @@ public class DatabaseServlet extends HttpServlet {
             printAsIs("</body>");
             printAsIs("</html>");
 
-            writer = null;
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Something broke in the servlet " + e);
+        } finally {
+            writer = null;
         }
+    }
+
+    private void printGrainIngredientSection(String webAppWebInfDirectory, String levelFiltering) {
+        print("Grain list ingredients - generated from file");
+
+        GrainIngredientRepository grainIngredientRepository = new GrainIngredientRepository();
+        grainIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "grain_ingredient.db");
+        grainIngredientRepository.getGrainMap().forEach((level, strings) -> {
+            if (levelFiltering == null) {
+                logger.fine("Grain list for level " + level + " has values " + strings);
+                strings.forEach(grain -> {
+                    printAsIs("<div>");
+                    printAsIs(grain + " (level " + level + ")");
+                    printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + grain.toLowerCase() + "\"/>");
+                    printAsIs("</div>");
+                });
+            } else if (levelFiltering.equals(level)) {
+                logger.fine("Grain list for level " + level + " has values " + strings);
+                strings.forEach(grain -> {
+                    printAsIs("<div>");
+                    printAsIs(grain + " (level " + level + ")");
+                    printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + grain.toLowerCase() + "\"/>");
+                    printAsIs("</div>");
+                });
+            }
+        });
+    }
+
+    private void printOilIngredientSection(String webAppWebInfDirectory, String levelFiltering) {
+        print("Oil list ingredients - generated from file");
+
+        OilIngredientRepository oilIngredientRepository = new OilIngredientRepository();
+        oilIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "oil_ingredient.db");
+        oilIngredientRepository.getOilMap().forEach((level, strings) -> {
+            if (levelFiltering == null) {
+                logger.fine("Oil list for level " + level + " has values " + strings);
+                strings.forEach(oil -> {
+                    printAsIs("<div>");
+                    printAsIs(oil + " (level " + level + ")");
+                    printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + oil.toLowerCase() + "\"/>");
+                    printAsIs("</div>");
+                });
+            } else if (levelFiltering.equals(level)) {
+                logger.fine("Oil list for level " + level + " has values " + strings);
+                strings.forEach(oil -> {
+                    printAsIs("<div>");
+                    printAsIs(oil + " (level " + level + ")");
+                    printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + oil.toLowerCase() + "\"/>");
+                    printAsIs("</div>");
+                });
+            }
+        });
+    }
+
+    private void printMeatIngredientSection(String webAppWebInfDirectory, String levelFiltering) {
+        print("Meat list ingredients - generated from file");
+
+        MeatIngredientRepository meatIngredientRepository = new MeatIngredientRepository();
+        meatIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "meat_ingredient.db");
+        meatIngredientRepository.getMeatMap().forEach((level, strings) -> {
+            if (levelFiltering == null) {
+                logger.fine("Meat list for level " + level + " has values " + strings);
+                strings.forEach(meat -> {
+                    printAsIs("<div>");
+                    printAsIs(meat + " (level " + level + ")");
+                    printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + meat.toLowerCase() + "\"/>");
+                    printAsIs("</div>");
+                });
+            } else if (levelFiltering.equals(level)) {
+                logger.fine("Meat list for level " + level + " has values " + strings);
+                strings.forEach(meat -> {
+                    printAsIs("<div>");
+                    printAsIs(meat + " (level " + level + ")");
+                    printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + meat.toLowerCase() + "\"/>");
+                    printAsIs("</div>");
+                });
+            }
+        });
+    }
+
+    private void printMilkIngredientSection(String webAppWebInfDirectory, String levelFiltering) {
+        print("Milk list ingredients - generated from file");
+
+        MilkIngredientRepository milkIngredientRepository = new MilkIngredientRepository();
+        milkIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "milk_ingredient.db");
+        milkIngredientRepository.getMilkMap().forEach((level, strings) -> {
+            if (levelFiltering == null) {
+                logger.fine("Milk list for level " + level + " has values " + strings);
+                strings.forEach(milk -> {
+                    printAsIs("<div>");
+                    printAsIs(milk + " (level " + level + ")");
+                    printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + milk.toLowerCase() + "\"/>");
+                    printAsIs("</div>");
+                });
+            } else if (levelFiltering.equals(level)) {
+                logger.fine("Milk list for level " + level + " has values " + strings);
+                strings.forEach(milk -> {
+                    printAsIs("<div>");
+                    printAsIs(milk + " (level " + level + ")");
+                    printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + milk.toLowerCase() + "\"/>");
+                    printAsIs("</div>");
+                });
+            }
+        });
+    }
+
+    private void printVegetableIngredientSection(String webAppWebInfDirectory, String levelFiltering) {
+        VegetableIngredientRepository vegetableIngredientRepository = new VegetableIngredientRepository();
+        vegetableIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "vegetable_ingredient.db");
+        vegetableIngredientRepository.getVegetableMap().forEach((level, strings) -> {
+            if (levelFiltering == null) {
+                logger.fine("Vegetables list for level " + level + " has values " + strings);
+                strings.forEach(vegetable -> {
+                    printAsIs("<div>");
+                    printAsIs(vegetable + " (level " + level + ")");
+                    printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + vegetable.toLowerCase() + "\"/>");
+                    printAsIs("</div>");
+                });
+            } else if (levelFiltering.equals(level)) {
+                logger.fine("Vegetables list for level " + level + " has values " + strings);
+                strings.forEach(vegetable -> {
+                    printAsIs("<div>");
+                    printAsIs(vegetable + " (level " + level + ")");
+                    printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + vegetable.toLowerCase() + "\"/>");
+                    printAsIs("</div>");
+                });
+            }
+        });
+    }
+
+    private void printFishIngredientsSection(String webAppWebInfDirectory, String levelFiltering) {
+        FishIngredientRepository fishIngredientRepository = new FishIngredientRepository();
+        fishIngredientRepository.loadDataFromFile(webAppWebInfDirectory + "fish_ingredient.db");
+
+        print("Fish ingredients - generated from file");
+
+        fishIngredientRepository.getFishMap().forEach((level, fishes) -> {
+            if (levelFiltering == null) {
+                fishes.forEach(fish -> {
+                    printAsIs("<div>");
+                    printAsIs(fish + " (level " + level + ")");
+                    printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + fish.toLowerCase() + "\"/>");
+                    printAsIs("</div>");
+                });
+            } else if (Integer.valueOf(levelFiltering).equals(level)) {
+                fishes.forEach(fishe -> {
+                    printAsIs("<div>");
+                    printAsIs(fishe + " (level " + level + ")");
+                    printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + fishe.toLowerCase() + "\"/>");
+                    printAsIs("</div>");
+                });
+            }
+        });
+        print("Vegetable list ingredients - generated from file");
+    }
+
+    private void printDrinkIngredientSection(String webAppWebInfDirectory, String levelFiltering) {
+        print("Drink ingredients - auto generated");
+        DrinkIngredientRepository drinkIngredientRepository = new DrinkIngredientRepository();
+        Map<String, List<String>> drinkIngridientsMap = drinkIngredientRepository.getDrinkMap();
+        drinkIngredientRepository.loadDataFromDirectory(webAppWebInfDirectory + "drink_ingredient.db");
+        logger.fine("Value of ingredient map is " + drinkIngridientsMap);
+        drinkIngridientsMap.forEach((level, ingredientList) -> {
+            logger.log(FINE,"Inside foreach on the ingredient list");
+            if (levelFiltering == null) {
+                ingredientList.forEach(ingredient -> {
+                    printAsIs("<div>");
+                    printAsIs(ingredient + "(level " + level + ")");
+                    printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + ingredient.toLowerCase() + "\"/>");
+                    printAsIs("</div>");
+                });
+            } else if (levelFiltering.equals(level)) {
+                ingredientList.forEach(ingredient -> {
+                    printAsIs("<div>");
+                    printAsIs(ingredient + "(level " + level + ")");
+                    printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + ingredient.toLowerCase() + "\"/>");
+                    printAsIs("</div>");
+                });
+            }
+        });
+        logger.fine("Finished printing ingredients");
+    }
+
+    private void printLevelFilteringSection(String levelFiltering) {
+        print("Level filtering");
+        ArrayList<String> possibleLevels = new ArrayList<>();
+        possibleLevels.add("1");
+        possibleLevels.add("2");
+        possibleLevels.add("3");
+        possibleLevels.add("4");
+        possibleLevels.add("5");
+        possibleLevels.forEach(levelValue -> {
+            printAsIs("<div>");
+            printAsIs(levelValue);
+            if (levelValue.equals(levelFiltering)) {
+                printAsIs("<input type=\"checkbox\" name=\"level-filter\" value=\"" + levelValue + "\" checked/>");
+            } else {
+                printAsIs("<input type=\"checkbox\" name=\"level-filter\" value=\"" + levelValue + "\"/>");
+            }
+            printAsIs("</div>");
+        });
     }
 
     private void printAsIs(String s) {
