@@ -2,8 +2,6 @@ package sandura.mhdatabase.kitchen.ingredient;
 
 import sandura.mhdatabase.logging.Logger;
 
-import java.io.IOException;
-
 public class DrinkIngredientRepositoryTest {
 
     private final Logger logger = new Logger(Logger.LoggingLevel.DEBUG);
