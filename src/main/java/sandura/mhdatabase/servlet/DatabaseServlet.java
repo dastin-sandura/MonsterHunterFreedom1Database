@@ -23,6 +23,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static java.util.logging.Level.FINE;
+
 public class DatabaseServlet extends HttpServlet {
 
     private static final RecipeRepository recipeRepository = new RecipeRepository();
@@ -34,23 +36,12 @@ public class DatabaseServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         try {
-//        Logger.getLogger (DatabaseServlet.class.getName()).log(Level.WARNING, e.getMessage(), e);
-            logger.log(Level.INFO, "hello world");
+            logger.log(Level.INFO, this.getClass().getName());
             req.getQueryString();
             String levelFiltering = req.getParameter("level-filter");
-            if ("null".equals(levelFiltering)) {
-                logger.log(Level.INFO, "Chaning level-filter value to null");
-                levelFiltering = null;
-            } else if (levelFiltering == null) {
-                logger.log(Level.INFO, "level-filter param remains as special vlue null");
-            } else {
-                logger.log(Level.INFO, "level-filter param has not String null and not special null value so it has value '" + levelFiltering + "' so what the fuck is the value?");
-            }
-            final String finalLevelFiltering = levelFiltering;
 
-            logger.log(Level.INFO, "level filter value is: " + levelFiltering);
+            logger.log(FINE, "level filter value is: " + levelFiltering);
             String[] ingredients = req.getParameterValues("ingredient");
-
             writer = resp.getWriter();
 
             printAsIs("<!doctype html>");
@@ -91,7 +82,7 @@ public class DatabaseServlet extends HttpServlet {
             }
 
 
-            printAsIs("<form action=\"\" method\"get\">");
+            printAsIs("<form action=\"\" method=\"get\">");
             print("Level filtering");
             ArrayList<String> possibleLevels = new ArrayList<>();
             possibleLevels.add("1");
@@ -99,39 +90,32 @@ public class DatabaseServlet extends HttpServlet {
             possibleLevels.add("3");
             possibleLevels.add("4");
             possibleLevels.add("5");
-            printAsIs("<div>");
-            printAsIs("Clear filtering");
-            printAsIs("<input type=\"checkbox\" name=\"level-filter\" value=\"null\"/>");
-            printAsIs("</div>");
             possibleLevels.forEach(levelValue -> {
                 printAsIs("<div>");
                 printAsIs(levelValue);
-                if (levelValue.equals(finalLevelFiltering)) {
+                if (levelValue.equals(levelFiltering)) {
                     printAsIs("<input type=\"checkbox\" name=\"level-filter\" value=\"" + levelValue + "\" checked/>");
-
                 } else {
-
                     printAsIs("<input type=\"checkbox\" name=\"level-filter\" value=\"" + levelValue + "\"/>");
                 }
                 printAsIs("</div>");
             });
             print("Drink ingredients - auto generated");
-            logger.log(Level.INFO, "finalLevelFiltering variable value = " + finalLevelFiltering);
             Map<String, List<String>> drinkIngridientsMap = drinkIngredientRepository.getDrinkMap();
             if (drinkIngridientsMap.isEmpty()) {
                 drinkIngredientRepository.loadDataFromDirectory(webAppWebInfDirectory + "drink_ingredient.db");
             }
-            logger.log(Level.INFO, "Value of ingredient map is " + drinkIngridientsMap);
+            logger.log(FINE, "Value of ingredient map is " + drinkIngridientsMap);
             drinkIngridientsMap.forEach((level, ingredientList) -> {
-//                logger.log(Level.INFO,"Inside foreach on the ingredient list");
-                if (finalLevelFiltering == null) {
+                logger.log(FINE,"Inside foreach on the ingredient list");
+                if (levelFiltering == null) {
                     ingredientList.forEach(ingredient -> {
                         printAsIs("<div>");
                         printAsIs(ingredient + "(level " + level + ")");
                         printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + ingredient.toLowerCase() + "\"/>");
                         printAsIs("</div>");
                     });
-                } else if (finalLevelFiltering.equals(level)) {
+                } else if (levelFiltering.equals(level)) {
                     ingredientList.forEach(ingredient -> {
                         printAsIs("<div>");
                         printAsIs(ingredient + "(level " + level + ")");
@@ -140,21 +124,21 @@ public class DatabaseServlet extends HttpServlet {
                     });
                 }
             });
-            logger.log(Level.INFO, "Finished printing ingredients");
+            logger.log(FINE, "Finished printing ingredients");
             FishIngredientRepository fishIngredientRepository = new FishIngredientRepository();
             fishIngredientRepository.loadDataFromFile(webAppWebInfDirectory + "fish_ingredient.db");
-            logger.log(Level.INFO, fishIngredientRepository.getFishMap().toString());
+
             print("Fish ingredients - generated from file");
 
             fishIngredientRepository.getFishMap().forEach((level, fishes) -> {
-                if (finalLevelFiltering == null) {
-                    fishes.forEach(fishe -> {
+                if (levelFiltering == null) {
+                    fishes.forEach(fish -> {
                         printAsIs("<div>");
-                        printAsIs(fishe + " (level " + level + ")");
-                        printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + fishe.toLowerCase() + "\"/>");
+                        printAsIs(fish + " (level " + level + ")");
+                        printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + fish.toLowerCase() + "\"/>");
                         printAsIs("</div>");
                     });
-                } else if (Integer.valueOf(finalLevelFiltering).equals(level)) {
+                } else if (Integer.valueOf(levelFiltering).equals(level)) {
                     fishes.forEach(fishe -> {
                         printAsIs("<div>");
                         printAsIs(fishe + " (level " + level + ")");
@@ -163,23 +147,21 @@ public class DatabaseServlet extends HttpServlet {
                     });
                 }
             });
-
             print("Vegetable list ingredients - generated from file");
 
             VegetableIngredientRepository vegetableIngredientRepository = new VegetableIngredientRepository();
             vegetableIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "vegetable_ingredient.db");
             vegetableIngredientRepository.getVegetableMap().forEach((level, strings) -> {
-                if (finalLevelFiltering == null) {
-
-                    logger.log(Level.INFO, "Vegetables list for level " + level + " has values " + strings);
+                if (levelFiltering == null) {
+                    logger.log(FINE, "Vegetables list for level " + level + " has values " + strings);
                     strings.forEach(vegetable -> {
                         printAsIs("<div>");
                         printAsIs(vegetable + " (level " + level + ")");
                         printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + vegetable.toLowerCase() + "\"/>");
                         printAsIs("</div>");
                     });
-                } else if (finalLevelFiltering.equals(level)) {
-                    logger.log(Level.INFO, "Vegetables list for level " + level + " has values " + strings);
+                } else if (levelFiltering.equals(level)) {
+                    logger.log(FINE, "Vegetables list for level " + level + " has values " + strings);
                     strings.forEach(vegetable -> {
                         printAsIs("<div>");
                         printAsIs(vegetable + " (level " + level + ")");
@@ -194,17 +176,16 @@ public class DatabaseServlet extends HttpServlet {
             MilkIngredientRepository milkIngredientRepository = new MilkIngredientRepository();
             milkIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "milk_ingredient.db");
             milkIngredientRepository.getMilkMap().forEach((level, strings) -> {
-                if (finalLevelFiltering == null) {
-
-                    logger.log(Level.INFO, "Milk list for level " + level + " has values " + strings);
+                if (levelFiltering == null) {
+                    logger.log(FINE, "Milk list for level " + level + " has values " + strings);
                     strings.forEach(milk -> {
                         printAsIs("<div>");
                         printAsIs(milk + " (level " + level + ")");
                         printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + milk.toLowerCase() + "\"/>");
                         printAsIs("</div>");
                     });
-                } else if (finalLevelFiltering.equals(level)) {
-                    logger.log(Level.INFO, "Milk list for level " + level + " has values " + strings);
+                } else if (levelFiltering.equals(level)) {
+                    logger.log(FINE, "Milk list for level " + level + " has values " + strings);
                     strings.forEach(milk -> {
                         printAsIs("<div>");
                         printAsIs(milk + " (level " + level + ")");
@@ -219,17 +200,16 @@ public class DatabaseServlet extends HttpServlet {
             MeatIngredientRepository meatIngredientRepository = new MeatIngredientRepository();
             meatIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "meat_ingredient.db");
             meatIngredientRepository.getMeatMap().forEach((level, strings) -> {
-                if (finalLevelFiltering == null) {
-
-                    logger.log(Level.INFO, "Meat list for level " + level + " has values " + strings);
+                if (levelFiltering == null) {
+                    logger.log(FINE, "Meat list for level " + level + " has values " + strings);
                     strings.forEach(meat -> {
                         printAsIs("<div>");
                         printAsIs(meat + " (level " + level + ")");
                         printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + meat.toLowerCase() + "\"/>");
                         printAsIs("</div>");
                     });
-                } else if (finalLevelFiltering.equals(level)) {
-                    logger.log(Level.INFO, "Meat list for level " + level + " has values " + strings);
+                } else if (levelFiltering.equals(level)) {
+                    logger.log(FINE, "Meat list for level " + level + " has values " + strings);
                     strings.forEach(meat -> {
                         printAsIs("<div>");
                         printAsIs(meat + " (level " + level + ")");
@@ -244,17 +224,16 @@ public class DatabaseServlet extends HttpServlet {
             OilIngredientRepository oilIngredientRepository = new OilIngredientRepository();
             oilIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "oil_ingredient.db");
             oilIngredientRepository.getOilMap().forEach((level, strings) -> {
-                if (finalLevelFiltering == null) {
-
-                    logger.log(Level.INFO, "Oil list for level " + level + " has values " + strings);
+                if (levelFiltering == null) {
+                    logger.log(FINE, "Oil list for level " + level + " has values " + strings);
                     strings.forEach(oil -> {
                         printAsIs("<div>");
                         printAsIs(oil + " (level " + level + ")");
                         printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + oil.toLowerCase() + "\"/>");
                         printAsIs("</div>");
                     });
-                } else if (finalLevelFiltering.equals(level)) {
-                    logger.log(Level.INFO, "Oil list for level " + level + " has values " + strings);
+                } else if (levelFiltering.equals(level)) {
+                    logger.log(FINE, "Oil list for level " + level + " has values " + strings);
                     strings.forEach(oil -> {
                         printAsIs("<div>");
                         printAsIs(oil + " (level " + level + ")");
@@ -269,17 +248,16 @@ public class DatabaseServlet extends HttpServlet {
             GrainIngredientRepository grainIngredientRepository = new GrainIngredientRepository();
             grainIngredientRepository.loadDataFromBaseDir(webAppWebInfDirectory + "grain_ingredient.db");
             grainIngredientRepository.getGrainMap().forEach((level, strings) -> {
-                if (finalLevelFiltering == null) {
-
-                    logger.log(Level.INFO, "Grain list for level " + level + " has values " + strings);
+                if (levelFiltering == null) {
+                    logger.log(FINE, "Grain list for level " + level + " has values " + strings);
                     strings.forEach(grain -> {
                         printAsIs("<div>");
                         printAsIs(grain + " (level " + level + ")");
                         printAsIs("<input type=\"checkbox\" name=\"ingredient\" value=\"" + grain.toLowerCase() + "\"/>");
                         printAsIs("</div>");
                     });
-                } else if (finalLevelFiltering.equals(level)) {
-                    logger.log(Level.INFO, "Grain list for level " + level + " has values " + strings);
+                } else if (levelFiltering.equals(level)) {
+                    logger.log(FINE, "Grain list for level " + level + " has values " + strings);
                     strings.forEach(grain -> {
                         printAsIs("<div>");
                         printAsIs(grain + " (level " + level + ")");
@@ -289,7 +267,6 @@ public class DatabaseServlet extends HttpServlet {
                 }
             });
 
-
             printAsIs("""
                     <div>
                         <input type="submit" value="Generate" />
@@ -298,16 +275,15 @@ public class DatabaseServlet extends HttpServlet {
             printAsIs("</form>");
             felyneRecipesService.getNumberOfCooksFromIngredient("Chili Cheese");
 
-            if (finalLevelFiltering == null) {
+            printAsIs("<ol>");
+            if (levelFiltering == null) {
                 print("All combinations loaded from file:");
-                printAsIs("<ol>");
                 logger.log(Level.INFO, "Printing all recipies without filtering");
                 recipeRepository.getRecipes().forEach((s, s2) -> printAsIs("<li>" + s + " = " + s2 + "</li>"));
             } else {
-                print("Combinations loaded from file only when you have " + finalLevelFiltering + " Cat cooks.");
-                printAsIs("<ol>");
-                logger.log(Level.INFO, "Printing all recipies for cook count " + finalLevelFiltering);
-                recipeRepository.getRecipeByCookCountMap().get(Integer.parseInt(finalLevelFiltering)).forEach(s -> printAsIs("<li>" + s + "</li>"));
+                print("Combinations loaded from file only when you have " + levelFiltering + " Cat cooks.");
+                logger.log(Level.INFO, "Printing all recipes for cook count " + levelFiltering);
+                recipeRepository.getRecipeByCookCountMap().get(Integer.parseInt(levelFiltering)).forEach(s -> printAsIs("<li>" + s + "</li>"));
             }
             printAsIs("</ol>");
             printAsIs("</body>");
